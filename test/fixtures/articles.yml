@@ -5,3 +5,21 @@ one:
 
 two:
   body: MyText
+
+three:
+  body: <%= Faker::Quote.famous_last_words %>
+
+four:
+  body: <%= Faker::Quote.jack_handey %>
+
+five:
+  body: <%= Faker::Quote.matz %>
+
+six:
+  body: <%= Faker::Quote.most_interesting_man_in_the_world %>
+
+seven:
+  body: <%= Faker::Quote.robin %>
+
+eight:
+  body: <%= Faker::Quote.yoda %>
