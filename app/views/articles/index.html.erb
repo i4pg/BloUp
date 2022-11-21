@@ -1,14 +1,17 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+  <div class="section">
+    
+  
+    <p style="color: green"><%= notice %></p>
 
-<h1>Articles</h1>
 
-<div id="articles">
-  <% @articles.each do |article| %>
-    <%= render article %>
-    <p>
-      <%= link_to "Show this article", article %>
-    </p>
-  <% end %>
+    <div id="articles" class="box">
+      <% @articles.each do |article| %>
+        <%= link_to article, class:"has-text-black" do %>
+          <%= render article %>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
 </div>
-
-<%= link_to "New article", new_article_path %>
