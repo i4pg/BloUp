@@ -53,7 +53,10 @@
       <a class="button is-light">
         Log in
       </a>
-    <%= link_to "New article", new_article_path, class: "button is-responsive"%>
+      <%= link_to "New article",
+                  new_article_path,
+                  class: "button is-responsive",
+                  data: { turbo_frame: dom_id(Article.new) } %>
     </div>
   </div>
 </div>

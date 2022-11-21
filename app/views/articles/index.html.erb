@@ -1,17 +1,12 @@
 <div class="container">
   <div class="section">
     
-  
-    <p style="color: green"><%= notice %></p>
 
+    <%= turbo_frame_tag Article.new %>
 
-    <div id="articles" class="box">
-      <% @articles.each do |article| %>
-        <%= link_to article, class:"has-text-black" do %>
-          <%= render article %>
-        <% end %>
-      <% end %>
-    </div>
+    <%= turbo_frame_tag 'articles', class: "column box is-three-fifths is-offset-one-fifth" do %>
+      <%= render @articles %>
+    <% end %>
 
   </div>
 </div>
