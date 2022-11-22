@@ -1,15 +1,5 @@
-<%= form_with(model: article, class: "column is-three-fifths is-offset-one-fifth") do |form| %>
-  <% if article.errors.any? %>
-    <div class="notification is-warning">
-      <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
-
-      <ul>
-        <% article.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_with(model: article) do |form| %>
+  <%= render "error_each", article: article %>
 
   <article class="media">
     <figure class="media-left">
@@ -27,7 +17,9 @@
         <div class="level-left">
           <div class="level-item buttons">
             <%= form.submit class: "button is-success" %>
-            <%= link_to "Cancel", article_url(article), class: "button is-info" %>
+            <%= link_to "Cancel", root_path,
+                                  #data: { turbo_frame: "_top" },
+                                  class: "button is-info" %>
           </div>
         </div>
       </nav>
