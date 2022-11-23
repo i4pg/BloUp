@@ -1,2 +1,2 @@
-<%= turbo_stream.prepend "articles", @article %>
-<%= turbo_stream.update Article.new, "" %>
+<%= turbo_stream.update 'article_form', "" %>
+<%= turbo_stream.prepend "created_article", @article %>

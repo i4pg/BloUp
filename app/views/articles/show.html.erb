@@ -1,16 +1,13 @@
 <%= turbo_frame_tag 'articles' do %>
-  <p style="color: green">
-    <%= notice %>
-  </p>
 
-  <%= turbo_frame_tag 'edit_article' %>
-  <%= turbo_frame_tag 'updated_article', class: "content" do %>
-  <%= render @article %>
+  <%= turbo_frame_tag 'article_form' %>
+  <%= turbo_frame_tag 'updated_article', class: "section" do %>
+    <%= render @article %>
   <% end %>
   
   <div class="buttons">
     <%= link_to "Edit", edit_article_path(@article),
-                        data: { turbo_frame: "edit_article" },
+                        data: { turbo_frame: "article_form"  },
                         class: "button is-primary" %>
     <%= link_to "Back", articles_path, class: "button is-link" %>
   </div>
@@ -19,7 +16,6 @@
     <%= button_to "Remove",
       @article,
       method: :delete,
-      form: { data: { turbo_frame: "_top" }},
       class: "button is-danger" %>
   </div>
 <% end %>

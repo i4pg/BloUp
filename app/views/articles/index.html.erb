@@ -1,11 +1,6 @@
-<div class="container">
-  <div class="section">
-
-    <%= turbo_frame_tag Article.new %>
-
-    <%= turbo_frame_tag 'articles', class: "column box is-three-fifths is-offset-one-fifth" do %>
-      <%= render @articles %>
-    <% end %>
-
-  </div>
-</div>
+<%= turbo_frame_tag 'articles', class: "column box is-three-fifths is-offset-one-fifth" do %>
+  <%= turbo_frame_tag 'article_form' %>
+  <%= turbo_frame_tag 'created_article' do %>
+    <%= render @articles %>
+  <% end %>
+<% end %>
