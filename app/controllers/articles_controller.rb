@@ -53,10 +53,8 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Article was successfully destroyed.' }
-      format.turbo_stream { flash.now[:notice] = 'Article was successfully created.' }
       format.json { head :no_content }
     end
-    @articles = Article.all.order('created_at DESC')
   end
 
   private
