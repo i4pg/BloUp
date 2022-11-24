@@ -1,8 +1,3 @@
-<p style="color: green"><%= notice %></p>
-      <%= link_to "New article",
-                  new_article_path,
-                  class: "button is-responsive",
-                  data: { turbo_frame: 'article_form' } %>
 <%= turbo_frame_tag 'articles', class: "column box is-three-fifths is-offset-one-fifth" do %>
   <%= turbo_frame_tag 'article_form' %>
   <%= turbo_frame_tag 'created_article' do %>
