@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
   setup do
-    login_as users(:one)
+    user = users(:one)
   end
 
   test 'should not save article without body' do
@@ -16,7 +16,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   test 'Should save article with user and and body' do
-    article = Article.new(body: 'good')
+    article = Article.new(user_id: users(:one).id, body: 'good')
     assert article.save, 'Saved article with user and body'
   end
 end

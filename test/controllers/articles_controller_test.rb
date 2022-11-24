@@ -1,9 +1,10 @@
 require 'test_helper'
 
 class ArticlesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
+    sign_in users(:one)
     @article = articles(:one)
-    @user = users(:one)
   end
 
   test 'should get index' do
@@ -18,7 +19,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create article' do
     assert_difference('Article.count') do
-      post articles_url, params: { article: { body: @article.body, user_id: @user.id } }
+      post articles_url, params: { article: { body: @article.body } }
     end
 
     assert_redirected_to article_url(Article.last)
@@ -35,7 +36,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update article' do
-    patch article_url(@article), params: { article: { body: @article.body, user_id: @user.id } }
+    patch article_url(@article), params: { article: { body: @article.body } }
     assert_redirected_to article_url(@article)
   end
 

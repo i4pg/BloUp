@@ -21,21 +21,23 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_text @article.body
   end
 
-  # test 'should update Article' do
-  #   visit article_url(@article)
-  #   click_on 'Edit this article', match: :first
+  test 'should update Article' do
+    visit article_url(@article)
+    click_on 'Edit', match: :first
 
-  #   fill_in 'Body', with: @article.body
-  #   click_on 'Update Article'
+    fill_in 'article_body', with: @article.body
+    click_on 'Update Article'
 
-  #   assert_text 'Article was successfully updated'
-  #   click_on 'Back'
-  # end
+    assert_text @article.body
+    click_on 'Back'
+  end
 
-  # test 'should destroy Article' do
-  #   visit article_url(@article)
-  #   click_on 'Destroy this article', match: :first
+  test 'should destroy Article' do
+    visit article_url(@article)
 
-  #   assert_text 'Article was successfully destroyed'
-  # end
+    assert_difference('Article.count', -1) do
+      click_on 'Remove', match: :first
+      # assert_text 'Article was successfully destroyedd', 'HA'
+    end
+  end
 end

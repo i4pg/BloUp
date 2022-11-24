@@ -53,14 +53,6 @@
       <a class="button is-light">
         Log in
       </a>
-      <%= turbo_frame_tag 'navbar' do %>
-      <% if action_name == 'index' %>
-      <%= link_to "New article",
-                  new_article_path,
-                  class: "button",
-                  data: { turbo_frame: 'article_form' } %>
-                <% end %>
-                <% end %>
     </div>
   </div>
 </div>
