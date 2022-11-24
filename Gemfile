@@ -77,3 +77,5 @@ end
 gem "faker", "~> 3.0"
 
 gem "devise", "~> 4.8"
+
+gem "guard", "~> 2.18"
