@@ -3,6 +3,7 @@ require 'test_helper'
 class ArticlesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @article = articles(:one)
+    @user = users(:one)
   end
 
   test 'should get index' do
@@ -17,7 +18,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create article' do
     assert_difference('Article.count') do
-      post articles_url, params: { article: { body: @article.body } }
+      post articles_url, params: { article: { body: @article.body, user_id: @user.id } }
     end
 
     assert_redirected_to article_url(Article.last)
@@ -34,7 +35,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update article' do
-    patch article_url(@article), params: { article: { body: @article.body } }
+    patch article_url(@article), params: { article: { body: @article.body, user_id: @user.id } }
     assert_redirected_to article_url(@article)
   end
 

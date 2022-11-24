@@ -1,25 +1,33 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# one:
-#   body: MyText
+one:
+  user: one
+  body: <%= Faker::Quote.jack_handey %>
 
-# two:
-#   body: MyText
+two:
+  user: two
+  body: <%= Faker::Quote.famous_last_words %>
 
-# three:
-#   body: <%= Faker::Quote.famous_last_words %>
+three:
+  user: three
+  body: <%= Faker::Quote.famous_last_words %>
 
-# four:
-#   body: <%= Faker::Quote.jack_handey %>
+four:
+  user: one
+  body: <%= Faker::Quote.jack_handey %>
 
-# five:
-#   body: <%= Faker::Quote.matz %>
+five:
+  user: two
+  body: <%= Faker::Quote.matz %>
 
-# six:
-#   body: <%= Faker::Quote.most_interesting_man_in_the_world %>
+six:
+  user: three
+  body: <%= Faker::Quote.most_interesting_man_in_the_world %>
 
-# seven:
-#   body: <%= Faker::Quote.robin %>
+seven:
+  user: one
+  body: <%= Faker::Quote.robin %>
 
-# eight:
-#   body: <%= Faker::Quote.yoda %>
+eight:
+  user: two
+  body: <%= Faker::Quote.yoda %>
