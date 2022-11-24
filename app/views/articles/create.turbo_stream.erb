@@ -1,2 +1,3 @@
 <%= turbo_stream.update 'article_form', "" %>
 <%= turbo_stream.prepend "created_article", @article %>
+<%= render_turbo_stream_flash_messages %>

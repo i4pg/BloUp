@@ -1,8 +1,8 @@
 @keyframes appear-then-fade {
-  0%, 100% {
+  0%, 80% {
     opacity:0
   }
-  5%, 60% {
+  80%, 100% {
     opacity:1
   }
 }
