@@ -14,6 +14,7 @@ class User < ApplicationRecord
 
   # we sure to add case insensitivity to your validations on :username
   validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates :requested_friends, uniqueness: { scope: :request_received }
 
   # Create a login virtual attribute in the User model
   # Add login as an User
