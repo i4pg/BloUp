@@ -6,6 +6,16 @@ class ArticlesTest < ApplicationSystemTestCase
     @article = articles(:six)
   end
 
+  test 'login logout buttons' do
+    visit articles_url
+    assert_text 'Logout'
+    assert_text 'Profile'
+    logout
+    visit articles_url
+    assert_text 'Login'
+    assert_text 'Sign Up'
+  end
+
   test 'visiting the index' do
     visit articles_url
     assert_selector 'div'

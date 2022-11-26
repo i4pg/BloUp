@@ -27,7 +27,7 @@
   <% end %>
 
   <div class="buttons">
-    <%= f.submit "Log in", class: "button is-success" %>
+    <%= f.submit "Log in", class: "button is-success", data: { turbo_frame: 'sign_buttons'} %>
   </div>
 <%= render "devise/shared/links" %>
 <% end %>
