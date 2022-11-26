@@ -12,3 +12,33 @@ three:
   username: <%= Faker::Internet.username %>
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+four:
+  username: <%= Faker::Internet.username %>
+  email: <%= Faker::Internet.email %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+five:
+  username: <%= Faker::Internet.username %>
+  email: <%= Faker::Internet.email %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+six:
+  username: <%= Faker::Internet.username %>
+  email: <%= Faker::Internet.email %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+seven:
+  username: <%= Faker::Internet.username %>
+  email: <%= Faker::Internet.email %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+eight:
+  username: <%= Faker::Internet.username %>
+  email: <%= Faker::Internet.email %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+nine:
+  username: <%= Faker::Internet.username %>
+  email: <%= Faker::Internet.email %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
