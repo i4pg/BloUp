@@ -24,6 +24,7 @@
 // $control-border-width: 2px;
 // $input-border-color: transparent;
 // $input-shadow: none;
+// $box-radius: 100px;
 
 // Import only what you need from Bulma
 // @import "bulma/sass/utilities/_all.sass";
@@ -38,6 +39,5 @@
 @import "components/turbo_progress_bar";
 @import "components/flash";
 @import "config/animations";
-
 
 @import 'bulma/bulma';

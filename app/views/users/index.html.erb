@@ -1,2 +1,23 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<%= turbo_frame_tag 'users', class: "column card is-three-fifths is-offset-one-fifth" do %>
+    <% @users.each do |user| %>
+
+         <div class="media box card-content" style="padding: .5rem">
+           <div class="media-left">
+             <figure class="image is-48x48">
+               <img class="is-rounded" src="<%= Faker::Avatar.image %>">
+             </figure>
+           </div>
+
+           <div class="media-content">
+             <div class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= user.username %></div>
+           </div>
+
+           <div class="media-right">
+               <span class="icon box is-size-6 is-clickable" title="Add a friend">
+                 <i class="fa-solid fa-user-plus"></i>
+               </span>
+             </span>             
+           </div>
+      </div>
+    <% end %>
+<% end %>
