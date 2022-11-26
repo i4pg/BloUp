@@ -20,6 +20,18 @@ class User < ApplicationRecord
   # Add login as an User
   attr_writer :login
 
+  def pending_requests(pending = [])
+    requested_friends.where(status: 'pending').each { |request| pending << request.receiver_id }
+    request_received.where(status: 'pending').each { |request| pending << request.receiver_id }
+    pending
+  end
+
+  def accepted_requests(pending = [])
+    requested_friends.where(status: 'accepted').each { |request| pending << request.receiver_id }
+    request_received.where(status: 'accepted').each { |request| pending << request.receiver_id }
+    pending
+  end
+
   def login
     @login || username || email
   end

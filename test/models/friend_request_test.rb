@@ -18,4 +18,9 @@ class FriendRequestTest < ActiveSupport::TestCase
     request = @receiver.requested_friends.create(receiver_id: @requestor.id)
     assert_not request.save, 'Receiver can send request once again'
   end
+
+  test 'User Should not be a friend to himself' do
+    request = @requestor.requested_friends.create(receiver_id: @requestor.id)
+    assert_not request.save, 'User can be friend with himself'
+  end
 end

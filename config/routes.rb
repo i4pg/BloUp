@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
   root 'articles#index'
-  resources :users, only: %i[index show]
+  devise_for :users
+
   resources :articles
+  resources :users, only: %i[index show]
+  resources :friend_requests, only: %i[create destory update show]
 end

@@ -2,10 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all
+    @users = User.where.not(id: current_user.id)
+    @requests = FriendRequest.all
   end
 
   def show
-    @user = User.find(paramas[:id])
+    @user = User.find(params[:id])
   end
 end
