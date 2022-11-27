@@ -22,6 +22,33 @@
   </ul>
 </div>
 
+<% @requests.each do |request| %>
+         <div class="media box" style="padding: .5rem">
+            <%= link_to user_url(request.requestor_id) do %>
+           <div class="media-left">
+             <figure class="image is-48x48">
+               <img class="is-rounded" src="<%= Faker::Avatar.image %>">
+             </figure>
+           </div>
+
+           <div class="media-content">
+              <div class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= User.find(request.requestor_id).username %></div>
+             <% end %>
+           </div>
+
+           <div class="media-right">
+             <%= button_to friend_request_url(request), method: :patch do %>
+                 <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem">
+                    <i class="fa-solid fa-user-plus"></i>
+                 </span>
+              <% end %>
+                 <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem"disabled>
+                    <i class="fa-solid fa-user-plus"></i>
+                 </span>
+           </div>
+      </div>
+      <% end %>
+
     <% @users.each do |user| %>
          <div class="media box" style="padding: .5rem">
             <%= link_to user_url(user.id) do %>

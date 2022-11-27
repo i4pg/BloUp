@@ -8,3 +8,11 @@
 
 puts "\n== Seeding the database with fixtures =="
 system('bin/rails db:fixtures:load')
+
+puts "\n== Seeding Friends requests =="
+
+u = User.first
+
+User.all.each do |user|
+  user.requested_friends.build(receiver_id: u.id).save unless user == u
+end

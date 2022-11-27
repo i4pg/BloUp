@@ -1,0 +1,44 @@
+<div id="<%= dom_id friend_request %>">
+
+  <div class="media box" style="padding: .5rem">
+
+    <%= link_to user_url(friend_request.requestor_id) do %>
+
+      <div class="media-left">
+        <figure class="image is-48x48">
+          <img class="is-rounded" src="<%= Faker::Avatar.image %>">
+        </figure>
+      </div>
+
+      <div class="media-content">
+        <div class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= User.find(friend_request.requestor_id).username %></div>
+      </div>
+
+    <% end %>
+
+      <div class="media-right">
+        <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem">
+          <i class="fa-solid fa-user-plus"></i>
+        </span>
+        <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem"disabled>
+          <i class="fa-solid fa-user-plus"></i>
+        </span>
+      </div>
+    </div>
+
+  <p>
+    <strong>Receiver:</strong>
+    <%= friend_request.receiver_id %>
+  </p>
+
+  <p>
+    <strong>Requestor:</strong>
+    <%= friend_request.requestor_id %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= friend_request.status %>
+  </p>
+
+</div>

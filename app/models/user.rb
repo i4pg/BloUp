@@ -4,17 +4,20 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :articles
+  has_many :articles, dependent: :destroy
 
-  has_many :requested_friends, foreign_key: 'requestor_id', class_name: 'FriendRequest'
-  has_many :request_received, foreign_key: 'receiver_id', class_name: 'FriendRequest'
+  has_many :requested_friends, foreign_key: 'requestor_id', class_name: 'FriendRequest', dependent: :destroy
+  has_many :request_received, foreign_key: 'receiver_id', class_name: 'FriendRequest', dependent: :destroy
 
-  has_many :made_requests, foreign_key: 'requestor_user_id', class_name: 'Friend'
-  has_many :accepted_requests, foreign_key: 'receiver_user_id', class_name: 'Friend'
+  has_many :made_requests, foreign_key: 'requestor_user_id', class_name: 'Friend', dependent: :destroy
+  has_many :accepted_requests, foreign_key: 'receiver_user_id', class_name: 'Friend', dependent: :destroy
 
   # we sure to add case insensitivity to your validations on :username
   validates :username, presence: true, uniqueness: { case_sensitive: false }
-  validates :requested_friends, uniqueness: { scope: :request_received }
+  # only allow letter, number, underscore and punctuation.
+  validates_format_of :username, with: /^[a-zA-Z0-9_.]*$/, multiline: true
+  # check if the same email as the username already exists in the database:
+  validate :validate_username
 
   # Create a login virtual attribute in the User model
   # Add login as an User
@@ -26,10 +29,14 @@ class User < ApplicationRecord
     pending
   end
 
-  def accepted_requests(pending = [])
-    requested_friends.where(status: 'accepted').each { |request| pending << request.receiver_id }
-    request_received.where(status: 'accepted').each { |request| pending << request.receiver_id }
-    pending
+  def accepted_requests(accepted = [])
+    requested_friends.where(status: 'accepted').each { |request| accepted << request.receiver_id }
+    request_received.where(status: 'accepted').each { |request| accepted << request.receiver_id }
+    accepted
+  end
+
+  def validate_username
+    errors.add(:username, :invalid) if User.where(email: username).exists?
   end
 
   def login

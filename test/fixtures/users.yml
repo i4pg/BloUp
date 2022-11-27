@@ -2,43 +2,53 @@ one:
   username: <%= Faker::Internet.username %>
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  bio: <%= Faker::Quotes::Shakespeare.hamlet_quote %>
 
 two:
   username: <%= Faker::Internet.username %>
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  bio: <%= Faker::Quotes::Shakespeare.hamlet_quote %>
 
 three:
   username: <%= Faker::Internet.username %>
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  bio: <%= Faker::Quotes::Shakespeare.hamlet_quote %>
 
 four:
   username: <%= Faker::Internet.username %>
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  bio: <%= Faker::Quotes::Shakespeare.hamlet_quote %>
 
 five:
   username: <%= Faker::Internet.username %>
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  bio: <%= Faker::Quotes::Shakespeare.hamlet_quote %>
 
 six:
   username: <%= Faker::Internet.username %>
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  bio: <%= Faker::Quotes::Shakespeare.hamlet_quote %>
 
 seven:
   username: <%= Faker::Internet.username %>
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  bio: <%= Faker::Quotes::Shakespeare.hamlet_quote %>
 
 eight:
   username: <%= Faker::Internet.username %>
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  bio: <%= Faker::Quotes::Shakespeare.hamlet_quote %>
 
 nine:
   username: <%= Faker::Internet.username %>
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  bio: <%= Faker::Quotes::Shakespeare.hamlet_quote %>
+

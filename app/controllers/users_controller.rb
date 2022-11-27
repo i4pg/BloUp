@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.where.not(id: current_user.id)
-    @requests = FriendRequest.all
+    @requests = current_user.request_received.all
   end
 
   def show; end

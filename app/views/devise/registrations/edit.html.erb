@@ -33,7 +33,7 @@
   <div class="field-body">
     <div class="field">
       <div class="control">
-        <textarea class="textarea" placeholder="Tell something about yourself"></textarea>
+        <%= f.text_area :bio, class: "textarea", placeholder: "Tell something about yourself", autocomplete: :bio %>
       </div>
     </div>
   </div>
@@ -110,8 +110,9 @@
        </div>
     </div>
   </div>
-</div>
+</div> <br>
 
+<% end %>
 <div class="field is-horizontal">
   <div class="field-label is-normal">
     <label class="label">Unhappy?</label>
@@ -125,7 +126,6 @@
   </div>
 </div>
 
-<% end %>
 <%= link_to "Back", :back %>
 <% end %>
 <% end %>
