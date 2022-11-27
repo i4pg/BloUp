@@ -4,5 +4,6 @@ Rails.application.routes.draw do
 
   resources :articles
   resources :users, only: %i[index show]
-  resources :friend_requests, only: %i[create destory update show]
+  resources :friend_requests, only: %i[create destory update]
+  # resource :dashboard, only: [:show]
 end

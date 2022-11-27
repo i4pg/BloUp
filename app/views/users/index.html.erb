@@ -1,6 +1,6 @@
-<%= turbo_frame_tag 'articles', class: "column card is-three-fifths is-offset-one-fifth" do %>
+<%= turbo_frame_tag 'articles' do %>
     <% @users.each do |user| %>
-         <div class="media box card-content" style="padding: .5rem">
+         <div class="media box" style="padding: .5rem">
             <%= link_to user_url(user.id) do %>
            <div class="media-left">
              <figure class="image is-48x48">

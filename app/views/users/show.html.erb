@@ -1,1 +1,21 @@
-<%= link_to 'Users', users_path, class: "button" %>
+<%= turbo_frame_tag 'articles', class: "" do %>
+  <div class="media">
+    
+    <div class="media-left">
+      <figure class="image is-64x64">
+        <img class="is-rounded" src="<%= Faker::Avatar.image %>">
+      </figure>
+    </div>
+
+    <div class="media-content">
+      <p class="title is-family-monospace">@<%= @user.username %></p>
+      <p class="subtitle is-6"><%= @user.created_at %></p>
+    <% @user.articles.each do |article| %>
+      <%= turbo_frame_tag 'partial_article', src:article, class: "card" %>
+      <br>
+    <% end %>
+    </div>
+
+
+  </div> 
+<% end %>

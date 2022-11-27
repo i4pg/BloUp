@@ -48,7 +48,7 @@
   <div class="navbar-item">
       <%= turbo_frame_tag 'sign_buttons', class: "buttons" do %>
         <% if user_signed_in? %>
-          <%= link_to edit_user_registration_path(id: current_user.id), class: 'button is-primary' do %>        
+          <%= link_to edit_user_registration_path(id: current_user.id), class: 'button is-primary', data: { turbo_frame: 'articles' } do %>        
             Profile
           <% end %>
           <%= button_to('Logout', destroy_user_session_path, method: :delete, class: "button is-light")  %> 

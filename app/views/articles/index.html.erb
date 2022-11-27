@@ -1,6 +1,14 @@
-<%= turbo_frame_tag 'articles', class: "column box is-three-fifths is-offset-one-fifth" do %>
+<div class="columns is-mobile">
+  
+<%= turbo_frame_tag 'profile', class: "column box " do %>
+  <%= render "users/profile", user: current_user %>
+<% end %>
+
+<%= turbo_frame_tag 'articles', class: "column box is-three-quarters" do %>
   <%= turbo_frame_tag 'article_form' %>
   <%= turbo_frame_tag 'created_article' do %>
     <%= render @articles %>
   <% end %>
 <% end %>
+
+</div>

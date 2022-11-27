@@ -1,33 +1,38 @@
-  <article class="media article"  id="<%= dom_id article%>">
-    <figure class="media-left">
-      <p class="image is-64x64">
+<article class="media article"  id="<%= dom_id article%>">
+  <%= link_to user_url(article.user), class: "has-text-black", data: {turbo_frame: 'articles'} do %>
+  <figure class="media-left">
+    <p class="image is-64x64">
       <img src="<%= Faker::Avatar.image %>">
+    </p>
+  </figure>
+  <% end %>
+
+  <%= turbo_frame_tag 'partial_article' do %>
+  <div class="media-content">
+    <div class="content ">
+      <p class="is-family-monospace">
+        <strong>@<%= article.user.username %></strong> <small><%= time_ago_in_words(article.created_at) %></small>
+        <br>
+          <%= article.body %>
       </p>
-    </figure>
-<%# turbo_frame_tag article do %>
-    <div class="media-content">
-      <div class="content">
-        <p>
-          <strong><%= article.user.username %></strong> <small><%= time_ago_in_words(article.created_at) %></small>
-          <br>
-            <%= article.body %>
-        </p>
-      </div>
-      <nav class="level is-mobile">
-        <div class="level-left">
-          <%= link_to article,
-            data: { turbo_frame: "articles"},
-            class: "level-item" do %>
-            <span class="icon is-small"><i class="fas fa-reply"></i></span>
-          <% end %>
-          <a class="level-item">
-            <span class="icon is-small"><i class="fas fa-retweet"></i></span>
-          </a>
-          <a class="level-item">
-            <span class="icon is-small"><i class="fas fa-heart"></i></span>
-          </a>
-        </div>
-      </nav>
     </div>
-<%# end %>
-  </article>
+
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <%= link_to article,
+          data: { turbo_frame: "articles"},
+          class: "level-item" do %>
+          <span class="icon is-small"><i class="fas fa-reply"></i></span>
+        <% end %>
+        <a class="level-item">
+          <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+        </a>
+        <a class="level-item">
+          <span class="icon is-small"><i class="fas fa-heart"></i></span>
+        </a>
+      </div>
+    </nav>
+    <% end %>
+
+  </div>
+</article>
