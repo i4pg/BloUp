@@ -1,14 +1,13 @@
 class FriendRequestsController < ApplicationController
-  before_action :set_friend_request, only: %i[ show edit update destroy ]
+  before_action :set_friend_request, only: %i[show edit update destroy]
 
   # GET /friend_requests or /friend_requests.json
   def index
-    @friend_requests = FriendRequest.all
+    @friend_requests = current_user.request_received.where(status: 'pending')
   end
 
   # GET /friend_requests/1 or /friend_requests/1.json
-  def show
-  end
+  def show; end
 
   # GET /friend_requests/new
   def new
@@ -16,8 +15,7 @@ class FriendRequestsController < ApplicationController
   end
 
   # GET /friend_requests/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /friend_requests or /friend_requests.json
   def create
@@ -25,7 +23,9 @@ class FriendRequestsController < ApplicationController
 
     respond_to do |format|
       if @friend_request.save
-        format.html { redirect_to friend_request_url(@friend_request), notice: "Friend request was successfully created." }
+        format.html do
+          redirect_to friend_request_url(@friend_request), notice: 'Friend request accepted.'
+        end
         format.json { render :show, status: :created, location: @friend_request }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class FriendRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @friend_request.update(friend_request_params)
-        format.html { redirect_to friend_request_url(@friend_request), notice: "Friend request was successfully updated." }
+        format.html { redirect_to friend_requests_url, notice: 'Friend request was accepted.' }
         format.json { render :show, status: :ok, location: @friend_request }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +52,20 @@ class FriendRequestsController < ApplicationController
     @friend_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to friend_requests_url, notice: "Friend request was successfully destroyed." }
+      format.html { redirect_to friend_requests_url, alert: 'Friend request was ignored.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_friend_request
-      @friend_request = FriendRequest.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def friend_request_params
-      params.require(:friend_request).permit(:receiver_id, :requestor_id, :status)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_friend_request
+    @friend_request = FriendRequest.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def friend_request_params
+    params.require(:friend_request).permit(:receiver_id, :requestor_id, :status)
+  end
 end

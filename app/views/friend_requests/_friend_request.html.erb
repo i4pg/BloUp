@@ -1,44 +1,35 @@
-<div id="<%= dom_id friend_request %>">
+<%= form_with(model: friend_request) do |form| %>
+<%= render "errors", friend_request: friend_request %>
+<%= form.hidden_field :receiver_id, value: friend_request.receiver_id %>
+<%= form.hidden_field :requestor_id, value: friend_request.requestor_id %>
+<%= form.hidden_field :status, value: "accepted" %>
 
-  <div class="media box" style="padding: .5rem">
+<div class="media box" style="padding: .5rem" id="<%= dom_id friend_request %>">
+  <%= link_to user_url(friend_request.requestor_id), class: "media-left" do %>
+    <figure class="image is-48x48">
+      <img class="is-rounded" src="<%= Faker::Avatar.image %>">
+    </figure>
+  <% end %>
 
-    <%= link_to user_url(friend_request.requestor_id) do %>
+  <%= link_to user_url(friend_request.requestor_id), class: "media-content" do %>
+    <div class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= User.find(friend_request.requestor_id).username %></div>
+  <% end %>
 
-      <div class="media-left">
-        <figure class="image is-48x48">
-          <img class="is-rounded" src="<%= Faker::Avatar.image %>">
-        </figure>
-      </div>
-
-      <div class="media-content">
-        <div class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= User.find(friend_request.requestor_id).username %></div>
-      </div>
-
+  <div class="media-right is-mobile level pt-3">
+    <%= button_tag type: "submit",
+                  mathod: :patch,
+                  class: "level-item is-success icon button is-rounded",
+                  title: "Accept request" do %>
+      <i class="fa-solid fa-circle-check"></i>
     <% end %>
 
-      <div class="media-right">
-        <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem">
-          <i class="fa-solid fa-user-plus"></i>
-        </span>
-        <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem"disabled>
-          <i class="fa-solid fa-user-plus"></i>
-        </span>
-      </div>
-    </div>
+<% end %>
 
-  <p>
-    <strong>Receiver:</strong>
-    <%= friend_request.receiver_id %>
-  </p>
+    <%= button_to friend_request, method: :delete,
+                                  class: "is-danger icon button is-rounded level-item",
+                                  title: "Ignore request" do %>
+      <i class="fa-solid fa-circle-xmark"></i>
+    <% end %>
 
-  <p>
-    <strong>Requestor:</strong>
-    <%= friend_request.requestor_id %>
-  </p>
-
-  <p>
-    <strong>Status:</strong>
-    <%= friend_request.status %>
-  </p>
-
+  </div>
 </div>

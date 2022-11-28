@@ -1,5 +1,5 @@
 class FriendRequest < ApplicationRecord
-  VALID_STATUSES = %w[accepted ignored pending]
+  VALID_STATUSES = %w[accepted pending]
 
   validates_with FriendRequestValidator, on: :create
   validates :status, inclusion: { in: VALID_STATUSES }
