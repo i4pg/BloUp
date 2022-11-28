@@ -1,28 +1,6 @@
 <%= turbo_frame_tag 'articles', class: "" do %>
 <%= turbo_frame_tag 'profile' do %>
-  <div class="tabs is-centered">
-  <ul>
-    <li class="">
-      <%= link_to edit_user_registration_path, data: { turbo_frame:"profile" } do %>
-        <span class="icon is-small"><i class="fa-solid fa-address-card" aria-hidden="true"></i></span>
-        <span>Dashboard</span>
-      <% end %>
-    </li>
-    <li class="">
-      <%= link_to users_path, data: { turbo_frame:"profile" } do %>
-        <span class="icon is-small"><i class="fa-solid fa-user-group" aria-hidden="true"></i></span>
-        <span>Friends</span>
-      <% end %>
-    </li>
-    <li class="is-active">
-      <%= link_to user_url(current_user), data: { turbo_frame: 'profile' } do %>
-        <span class="icon is-small"><i class="far fa-file-alt" aria-hidden="true"></i></span>
-        <span>Articles</span>
-      <% end %>
-    </li>
-  </ul>
-</div>
-
+<%= render 'users/profile_tabs' %>
   <div class="media">
     
     <div class="media-left">

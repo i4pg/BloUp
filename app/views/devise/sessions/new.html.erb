@@ -2,6 +2,7 @@
   <div class="container content column is-half is-offset-one-quarter">
 <%= turbo_frame_tag 'articles' do %>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :login, class: "label" %>

@@ -25,14 +25,20 @@ class User < ApplicationRecord
 
   def pending_requests(pending = [])
     requested_friends.where(status: 'pending').each { |request| pending << request.receiver_id }
-    request_received.where(status: 'pending').each { |request| pending << request.receiver_id }
+    request_received.where(status: 'pending').each { |request| pending << request.requestor_id }
     pending
   end
 
   def accepted_requests(accepted = [])
     requested_friends.where(status: 'accepted').each { |request| accepted << request.receiver_id }
-    request_received.where(status: 'accepted').each { |request| accepted << request.receiver_id }
+    request_received.where(status: 'accepted').each { |request| accepted << request.requestor_id }
     accepted
+  end
+
+  def requests(list = [])
+    requested_friends.each { |request| list << request.receiver_id }
+    request_received.each { |request| list << request.requestor_id }
+    list
   end
 
   def validate_username

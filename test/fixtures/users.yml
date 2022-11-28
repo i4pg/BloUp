@@ -51,4 +51,3 @@ nine:
   email: <%= Faker::Internet.email %>
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   bio: <%= Faker::Quotes::Shakespeare.hamlet_quote %>
-

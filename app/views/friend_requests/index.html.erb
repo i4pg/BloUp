@@ -1,14 +1,16 @@
-<p style="color: green"><%= notice %></p>
+<%= turbo_frame_tag 'profile' do %>
+  <%= render "users/profile_tabs" %>
+    <%= turbo_frame_tag 'friends_users', class: "is-mobile columns" do %>
 
-<h1>Friend requests</h1>
+    <div class="column">
+      <h1>Friends List</h1>
+      <%= render 'friends' %>
+    </div>
 
-<div id="friend_requests">
-  <% @friend_requests.each do |friend_request| %>
-    <%= render friend_request %>
-    <p>
-      <%= link_to "Show this friend request", friend_request %>
-    </p>
-  <% end %>
-</div>
+    <div class="column">
+      <h1>Friends Requests</h1>
+      <%= render @friend_requests %>
+    </div>
 
-<%= link_to "New friend request", new_friend_request_path %>
+    <% end %>
+<% end %>

@@ -1,21 +1,15 @@
 class FriendRequestsController < ApplicationController
   before_action :set_friend_request, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   # GET /friend_requests or /friend_requests.json
   def index
-    @friend_requests = current_user.request_received.where(status: 'pending')
+    @friend_requests = FriendRequest.where(id: current_user.request_received)
+    @friends = current_user.accepted_requests
   end
 
   # GET /friend_requests/1 or /friend_requests/1.json
   def show; end
-
-  # GET /friend_requests/new
-  def new
-    @friend_request = FriendRequest.new
-  end
-
-  # GET /friend_requests/1/edit
-  def edit; end
 
   # POST /friend_requests or /friend_requests.json
   def create
@@ -24,7 +18,8 @@ class FriendRequestsController < ApplicationController
     respond_to do |format|
       if @friend_request.save
         format.html do
-          redirect_to friend_request_url(@friend_request), notice: 'Friend request accepted.'
+          redirect_to users_url, notice: 'Friend request sent.'
+          flash.now[:notice] = 'Friend request sent.'
         end
         format.json { render :show, status: :created, location: @friend_request }
       else
@@ -38,7 +33,7 @@ class FriendRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @friend_request.update(friend_request_params)
-        format.html { redirect_to friend_requests_url, notice: 'Friend request was accepted.' }
+        format.html { redirect_to users_url, flash.now[:notice] = 'Friend request accepted.' }
         format.json { render :show, status: :ok, location: @friend_request }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +47,7 @@ class FriendRequestsController < ApplicationController
     @friend_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to friend_requests_url, alert: 'Friend request was ignored.' }
+      format.html { redirect_to users_url, alert: 'Friend request was ignored.' }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,37 @@
+<div class="media box" style="padding: .5rem" id="<%= dom_id user %>">
+  <%= link_to user_url(user.id) do %>
+    <div class="media-left">
+      <figure class="image is-48x48">
+        <img class="is-rounded" src="<%= Faker::Avatar.image %>">
+      </figure>
+    </div>
+
+    <div class="media-content">
+      <div class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= user.username %></div>
+  <% end %>
+    </div>
+
+    <div class="media-right">
+
+      <% unless @requests.include?(user.id) %>
+        <%= button_to friend_requests_path(
+          friend_request: 
+          {receiver_id: user.id,
+           requestor_id: current_user.id}),
+            class: "icon is-success button is-rounded",
+            data: { turbo_stream: "users" },
+            method: :post,
+            title: "Send request", 
+            style: "margin-top: .9rem;" do %>
+              <i class="fa-solid fa-user-plus"></i>
+        <% end %>
+        <% end %>
+
+      <% if current_user.pending_requests.include?(user.id) %>
+        <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem"disabled>
+          <i class="fa-solid fa-user-plus"></i>
+        </span>
+      <% end %>
+
+    </div>
+</div>
