@@ -7,9 +7,12 @@
       <%= render 'friends' %>
     </div>
 
+    <%= turbo_stream_from current_user, 'new_request_stream' %>
     <div class="column">
       <h1>Friends Requests</h1>
-      <%= render @friend_requests %>
+      <div id="new_request">
+        <%= render @friend_requests %>
+      </div>
     </div>
 
     <% end %>

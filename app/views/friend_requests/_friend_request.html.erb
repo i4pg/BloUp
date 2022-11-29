@@ -1,10 +1,4 @@
-<%= form_with(model: friend_request,
-              class: "media box p-2",
-              ) do |form| %>
-
-<%= form.hidden_field :receiver_id, value: friend_request.receiver_id %>
-<%= form.hidden_field :requestor_id, value: friend_request.requestor_id %>
-<%= form.hidden_field :status, value: "accepted" %>
+<div class="p-2 box media">
 
 <%= link_to user_url(friend_request.requestor_id), class: "media-left" do %>
   <figure class="image is-48x48">
@@ -13,22 +7,26 @@
 <% end %>
 
 <%= link_to user_url(friend_request.requestor_id), class: "media-content" do %>
-  <div class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= User.find(friend_request.requestor_id).username %></div>
+  <p class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= User.find(friend_request.requestor_id).username %></p>
 <% end %>
 
 <div class="media-right is-mobile level pt-3">
-  <%= button_tag type: "submit",
-                mathod: :patch,
-                class: "level-item is-success icon button is-rounded",
-                title: "Accept request" do %>
+  <%= button_to friend_request,
+    mathod: :put,
+    title: "Accept request",
+    class: "level-item is-success icon button is-rounded",
+    params: { friend_request:
+              { requestor_id: friend_request.requestor_id,
+              receiver_id: friend_request.receiver_id,
+              status: 'accepted' }} do %>
     <i class="fa-solid fa-circle-check"></i>
   <% end %>
-
-<% end %>
 
   <%= button_to friend_request, method: :delete,
                                 class: "is-danger icon button is-rounded level-item",
                                 title: "Ignore request" do %>
     <i class="fa-solid fa-circle-xmark"></i>
   <% end %>
+</div>
+
 </div>
