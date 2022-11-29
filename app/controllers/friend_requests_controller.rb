@@ -4,7 +4,7 @@ class FriendRequestsController < ApplicationController
 
   # GET /friend_requests or /friend_requests.json
   def index
-    @friend_requests = FriendRequest.where(id: current_user.request_received)
+    @friend_requests = FriendRequest.where(id: current_user.request_received.where(status: 'pending'))
     @friends = current_user.accepted_requests
   end
 
@@ -18,8 +18,7 @@ class FriendRequestsController < ApplicationController
     respond_to do |format|
       if @friend_request.save
         format.html do
-          redirect_to users_url, notice: 'Friend request sent.'
-          flash.now[:notice] = 'Friend request sent.'
+          redirect_to friend_requests_path, notice: 'Friend request sent.'
         end
         format.json { render :show, status: :created, location: @friend_request }
       else
@@ -33,7 +32,7 @@ class FriendRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @friend_request.update(friend_request_params)
-        format.html { redirect_to users_url, flash.now[:notice] = 'Friend request accepted.' }
+        format.html { redirect_to friend_requests_path, notice: 'Friend request accepted.' }
         format.json { render :show, status: :ok, location: @friend_request }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -47,7 +46,7 @@ class FriendRequestsController < ApplicationController
     @friend_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, alert: 'Friend request was ignored.' }
+      format.html { redirect_to friend_requests_path, alert: 'Friend request was ignored.' }
       format.json { head :no_content }
     end
   end
