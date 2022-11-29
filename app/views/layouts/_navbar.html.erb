@@ -49,7 +49,11 @@
   <div class="navbar-item">
       <%= turbo_frame_tag 'sign_buttons', class: "buttons" do %>
         <% if user_signed_in? %>
-          <%= link_to edit_user_registration_path(id: current_user.id), class: 'button is-primary', data: { turbo_frame: 'articles' } do %>        
+          <%= link_to "New article",
+                      new_article_path,
+                      class: "button is-responsive",
+                      data: { turbo_frame: 'article_form' } %>
+          <%= link_to edit_user_registration_path(id: current_user.id), class: 'button is-info', data: { turbo_frame: 'articles' } do %>        
             Profile
             <% new_request = current_user.request_received.where(status: 'pending') %>
             <% unless new_request.count.zero? %>
@@ -57,15 +61,10 @@
             <% end %>
           <% end %>
           <%= button_to('Logout', destroy_user_session_path, method: :delete, class: "button is-light")  %> 
-          <%= link_to "New article",
-                      new_article_path,
-                      class: "button is-responsive",
-                      data: { turbo_frame: 'article_form' } %>
         <% else %>
           <%= link_to('Login', new_user_session_path ,  class: "button is-light", data: { turbo_frame: "articles" }) %>  
           <%= link_to('Sign Up', new_user_registration_path ,  class: "button is-primary", data: { turbo_frame: "articles" })%>  
         <% end %>
-        <%= link_to 'Users', users_path, class: "button", data: { turbo_frame: "articles" } %>
       <% end %>
   </div>
 </div>
