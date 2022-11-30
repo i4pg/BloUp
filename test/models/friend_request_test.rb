@@ -2,7 +2,7 @@ require 'test_helper'
 
 class FriendRequestTest < ActiveSupport::TestCase
   setup do
-    @requestor = users(:three)
+    @requestor = users(:one)
     @receiver = users(:two)
 
     # build user first request

@@ -2,8 +2,8 @@ require 'application_system_test_case'
 
 class UsersTest < ApplicationSystemTestCase
   setup do
-    login_as users(:three)
-    @user = users(:three)
+    login_as users(:one)
+    @user = users(:one)
     @user_2 = users(:two)
   end
 

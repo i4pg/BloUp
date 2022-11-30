@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class ArticleTest < ActiveSupport::TestCase
-  setup do
-    user = users(:one)
-  end
-
   test 'should not save article without body' do
     article = Article.new
     assert_not article.save, 'Saved the article without a body'

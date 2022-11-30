@@ -1,5 +1,5 @@
 class FriendRequestsController < ApplicationController
-  before_action :set_friend_request, only: %i[show edit update destroy]
+  before_action :set_friend_request, only: %i[show edit destroy update]
   before_action :authenticate_user!
 
   # GET /friend_requests or /friend_requests.json
@@ -13,12 +13,12 @@ class FriendRequestsController < ApplicationController
 
   # POST /friend_requests or /friend_requests.json
   def create
-    @friend_request = FriendRequest.new(friend_request_params)
+    @friend_request = current_user.requested_friends.create(friend_request_params)
 
     respond_to do |format|
       if @friend_request.save
         format.html do
-          redirect_to friend_requests_path, notice: 'Friend request sent.'
+          redirect_to users_path, notice: 'Friend request sent.'
         end
         format.json { render :show, status: :created, location: @friend_request }
       else
@@ -30,9 +30,14 @@ class FriendRequestsController < ApplicationController
 
   # PATCH/PUT /friend_requests/1 or /friend_requests/1.json
   def update
+    # @friend_request = current_user.requested_friends.find(params[:friend_request]).update(status: 'accepted')
+
     respond_to do |format|
       if @friend_request.update(friend_request_params)
-        format.html { redirect_to friend_requests_path, notice: 'Friend request accepted.' }
+        format.html do
+          flash.now[:notice] = 'Friend request accepted.'
+          redirect_to friend_requests_path
+        end
         format.json { render :show, status: :ok, location: @friend_request }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,6 +65,6 @@ class FriendRequestsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def friend_request_params
-    params.require(:friend_request).permit(:receiver_id, :requestor_id, :status)
+    params.permit(:receiver_id, :requestor_id, :status)
   end
 end

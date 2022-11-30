@@ -14,10 +14,7 @@
     <div class="media-right">
 
       <% unless @requests.include?(user.id) %>
-        <%= button_to friend_requests_path(
-          friend_request: 
-          {receiver_id: user.id,
-           requestor_id: current_user.id}),
+        <%= button_to friend_requests_path(receiver_id: user.id),
             class: "icon is-success button is-rounded",
             data: { turbo_stream: "users" },
             method: :post,

@@ -9,9 +9,6 @@ class User < ApplicationRecord
   has_many :requested_friends, foreign_key: 'requestor_id', class_name: 'FriendRequest', dependent: :destroy
   has_many :request_received, foreign_key: 'receiver_id', class_name: 'FriendRequest', dependent: :destroy
 
-  has_many :made_requests, foreign_key: 'requestor_user_id', class_name: 'Friend', dependent: :destroy
-  has_many :accepted_requests, foreign_key: 'receiver_user_id', class_name: 'Friend', dependent: :destroy
-
   # we sure to add case insensitivity to your validations on :username
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   # only allow letter, number, underscore and punctuation.
