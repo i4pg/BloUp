@@ -1,48 +1,39 @@
-require "test_helper"
+require 'test_helper'
 
 class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
-    @friend_request = friend_requests(:one)
+    sign_in users(:one)
+    @friend_request = FriendRequest.create(receiver_id: users(:three).id,
+                                           requestor_id: users(:two).id).save
   end
 
-  test "should get index" do
+  test 'should get index' do
     get friend_requests_url
     assert_response :success
   end
 
-  test "should get new" do
-    get new_friend_request_url
-    assert_response :success
-  end
+  # test 'should create friend_request' do
+  #   assert_difference('FriendRequest.count') do
+  #     post friend_requests_url,
+  #          params: { receiver_id: users(:one).id, requestor_id: users(:two).id }
+  #   end
 
-  test "should create friend_request" do
-    assert_difference("FriendRequest.count") do
-      post friend_requests_url, params: { friend_request: { receiver_id: @friend_request.receiver_id, requestor_id: @friend_request.requestor_id, status: @friend_request.status } }
-    end
+  #   assert_redirected_to users_path
+  # end
 
-    assert_redirected_to friend_request_url(FriendRequest.last)
-  end
+  # test 'should update friend_request' do
+  #   patch friend_request_url(@friend_request),
+  #         params: { requestor_id: users(:two).id, receiver_id: users(:three).id, status: 'accepted' }
+  #   assert_redirected_to friend_requests_url
+  # end
 
-  test "should show friend_request" do
-    get friend_request_url(@friend_request)
-    assert_response :success
-  end
+  # test 'should destroy friend_request' do
+  #   assert_difference('FriendRequest.count', -1) do
+  #     delete friend_request_url(@friend_request)
+  #   end
 
-  test "should get edit" do
-    get edit_friend_request_url(@friend_request)
-    assert_response :success
-  end
-
-  test "should update friend_request" do
-    patch friend_request_url(@friend_request), params: { friend_request: { receiver_id: @friend_request.receiver_id, requestor_id: @friend_request.requestor_id, status: @friend_request.status } }
-    assert_redirected_to friend_request_url(@friend_request)
-  end
-
-  test "should destroy friend_request" do
-    assert_difference("FriendRequest.count", -1) do
-      delete friend_request_url(@friend_request)
-    end
-
-    assert_redirected_to friend_requests_url
-  end
+  #   assert_redirected_to friend_requests_url
+  # end
 end

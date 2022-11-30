@@ -1,11 +1,15 @@
 class FriendRequest < ApplicationRecord
-  VALID_STATUSES = %w[accepted pending]
+  # VALID_STATUSES = %i[accepted pending]
 
   validates_with FriendRequestValidator, on: :create
-  validates :status, inclusion: { in: VALID_STATUSES }
+  # validates :status, inclusion: { in: VALID_STATUSES }
 
   belongs_to :requestor, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
+
+  # scope :friends, -> { where(status: 'accepted') }
+  # scope :pending, -> { where(status: 'pending') }
+  enum :status, %i[accepted pending]
 
   # after_create_commit lambda { |_friend_request|
   #                       [receiver, 'new_request_stream']
@@ -20,16 +24,12 @@ class FriendRequest < ApplicationRecord
   end
 
   def send_requests_counter
-    counter = receiver.request_received.where(status: 'pending').count
+    counter = receiver.request_received.where(status: :pending).count
     if counter.zero?
       broadcast_remove_to('friend_requests_count_stream', target: 'requests_counter')
     else
       broadcast_update_to('friend_requests_count_stream', target: 'requests_counter',
                                                           html: counter)
     end
-  end
-
-  def accepted?
-    status == 'accepted'
   end
 end

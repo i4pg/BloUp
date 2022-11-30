@@ -4,7 +4,12 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = Article.all.order('created_at DESC').limit(10)
+    @articles = if user_signed_in?
+                  current_user.articles.or(current_user.friends.articles)
+                else
+                  Article.includes(:user).order('created_at DESC').limit(10)
+
+                end
   end
 
   # GET /articles/1 or /articles/1.json

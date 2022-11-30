@@ -34,7 +34,7 @@ class FriendRequestsController < ApplicationController
 
     respond_to do |format|
       if @friend_request.update(friend_request_params)
-        format.html do
+        format.turbo_stream do
           flash.now[:notice] = 'Friend request accepted.'
           redirect_to friend_requests_path
         end

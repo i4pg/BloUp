@@ -15,5 +15,6 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+    @articles = @user.articles.order('created_at ASC')
   end
 end

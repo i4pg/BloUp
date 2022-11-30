@@ -1,5 +1,4 @@
-<%= turbo_frame_tag 'articles', class: "" do %>
-<%= turbo_frame_tag 'profile' do %>
+<%= turbo_frame_tag 'articles' do %>
 <%= render 'users/profile_tabs' %>
   <div class="media">
     
@@ -12,7 +11,7 @@
     <div class="media-content">
       <p class="title is-family-monospace">@<%= @user.username %></p>
       <p class="subtitle is-6"><%= @user.created_at %></p>
-    <% @user.articles.each do |article| %>
+    <% @articles.each do |article| %>
       <%= turbo_frame_tag 'partial_article', src:article, class: "card" %>
       <br>
     <% end %>
@@ -20,5 +19,4 @@
 
 
   </div> 
-<% end %>
 <% end %>

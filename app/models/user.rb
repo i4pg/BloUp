@@ -4,10 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :articles, dependent: :destroy
+  has_one_attached :avatar
+
+  has_many :articles, -> { order(created_at: :desc) }, dependent: :destroy
 
   has_many :requested_friends, foreign_key: 'requestor_id', class_name: 'FriendRequest', dependent: :destroy
   has_many :request_received, foreign_key: 'receiver_id', class_name: 'FriendRequest', dependent: :destroy
+  has_many :friends, foreign_key: 'user_id', class_name: 'User', dependent: :destroy
 
   # we sure to add case insensitivity to your validations on :username
   validates :username, presence: true, uniqueness: { case_sensitive: false }
@@ -20,21 +23,21 @@ class User < ApplicationRecord
   # Add login as an User
   attr_writer :login
 
-  def pending_requests(pending = [])
-    requested_friends.where(status: 'pending').each { |request| pending << request.receiver_id }
-    request_received.where(status: 'pending').each { |request| pending << request.requestor_id }
-    pending
+  def friends_accept
+    request_received.accepted.or(requested_friends.accepted)
   end
 
-  def accepted_requests(accepted = [])
-    requested_friends.where(status: 'accepted').each { |request| accepted << request.receiver_id }
-    request_received.where(status: 'accepted').each { |request| accepted << request.requestor_id }
-    accepted
+  def pending_requests
+    request_received.pending.or(requested_friends.pending)
   end
 
-  def requests(list = [])
-    requested_friends.each { |request| list << request.receiver_id }
-    request_received.each { |request| list << request.requestor_id }
+  def home(list = [])
+    articles.each { |article| list << article }
+    friends.each do |id|
+      User.find(id).articles.each do |article|
+        list << article
+      end
+    end
     list
   end
 

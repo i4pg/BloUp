@@ -53,17 +53,17 @@
                       new_article_path,
                       class: "button is-responsive",
                       data: { turbo_frame: 'article_form' } %>
-          <%= link_to edit_user_registration_path(id: current_user.id), class: 'button is-info', data: { turbo_frame: 'articles' } do %>        
+          <%= link_to edit_user_registration_path(id: current_user.id), class: 'is-responsive button is-info', data: { turbo_frame: 'articles' } do %>        
             Profile
             <% new_request = current_user.request_received.where(status: 'pending') %>
             <% unless new_request.count.zero? %>
               <span id='requests_counter' title="Badge top right" class="badge is-danger is-top-left"><%= new_request.count %></span>
             <% end %>
           <% end %>
-          <%= button_to('Logout', destroy_user_session_path, method: :delete, class: "button is-light")  %> 
+          <%= button_to('Logout', destroy_user_session_path, method: :delete, class: "is-responsive button is-light")  %> 
         <% else %>
           <%= link_to('Login', new_user_session_path ,  class: "button is-light", data: { turbo_frame: "articles" }) %>  
-          <%= link_to('Sign Up', new_user_registration_path ,  class: "button is-primary", data: { turbo_frame: "articles" })%>  
+          <%= link_to('Sign Up', new_user_registration_path ,  class: "is-responsive button is-primary", data: { turbo_frame: "articles" })%>  
         <% end %>
       <% end %>
   </div>

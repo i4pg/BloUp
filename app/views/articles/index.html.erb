@@ -1,7 +1,7 @@
-<div class="columns is-mobile">
+<div class="columns">
 
   <% if user_signed_in? %>
-    <%= turbo_frame_tag 'proile', class: "column box " do %>
+    <%= turbo_frame_tag 'proile', class: "column box" do %>
       <%= render "users/profile", user: current_user %>
     <% end %>
   <% end %>
