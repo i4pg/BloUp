@@ -12,23 +12,25 @@
     </div>
 
     <div class="media-right">
+      <% unless current_user.friends.include?(user) %>
 
-      <% unless current_user.pendings.include?(user.id) %>
-        <%= button_to friend_requests_path(receiver_id: user.id),
-            class: "icon is-success button is-rounded",
-            data: { turbo_stream: "users" },
-            method: :post,
-            title: "Send request", 
-            style: "margin-top: .9rem;" do %>
-              <i class="fa-solid fa-user-plus"></i>
+        <% unless @pendings.include?(user.id) %>
+          <%= button_to friendship_path(receiver: user),
+              class: "icon is-success button is-rounded",
+              data: { turbo_stream: "users" },
+              method: :post,
+              title: "Send request", 
+              style: "margin-top: .9rem;" do %>
+                <i class="fa-solid fa-user-plus"></i>
+          <% end %>
+        <% end %>
+
+        <% if @pendings.include?(user.id) %>
+          <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem"disabled>
+            <i class="fa-solid fa-user-plus"></i>
+          </span>
         <% end %>
         <% end %>
-
-      <% if @pending_requests.include?(user.id) %>
-        <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem"disabled>
-          <i class="fa-solid fa-user-plus"></i>
-        </span>
-      <% end %>
 
     </div>
 </div>
