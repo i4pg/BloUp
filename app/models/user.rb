@@ -6,14 +6,17 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  has_many :articles, -> { order(created_at: :desc) }, dependent: :destroy
+  has_many :articles, dependent: :destroy
 
+  # to remove assocation just call delete
+  # if you add dependent: :destroy to has_many (no need for belongs_to)
+  # this will destroy the user entirely from the db
+  # either delete or destroy, delete_all or destroy_all
   belongs_to :friend, class_name: 'User', optional: true
   has_many :friends, class_name: 'User', foreign_key: 'friend_id'
 
   has_many :sent_requests, foreign_key: 'requester_id', class_name: 'Friendship', dependent: :destroy
   has_many :received_requests, foreign_key: 'receiver_id', class_name: 'Friendship', dependent: :destroy
-  # has_many :friends, -> { where(accepted_requests) }, class_name: 'User', foreign_key: 'user_id'
 
   # we sure to add case insensitivity to your validations on :username
   validates :username, presence: true, uniqueness: { case_sensitive: false }
@@ -56,9 +59,9 @@ class User < ApplicationRecord
   #   list
   # end
 
-  # def pending_requests
-  #   requests_received.pending.or(requested_friends.pending)
-  # end
+  def pendings
+    received_requests.pending.or(sent_requests.pending)
+  end
 
   # def home(list = [])
   #   articles.each { |article| list << article }
