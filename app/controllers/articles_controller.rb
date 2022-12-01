@@ -4,16 +4,13 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = if user_signed_in?
-                  current_user.home
-                else
-                  Article.includes(:user).order('created_at DESC').limit(10)
-
-                end
+    @articles = Article.includes(:user).where(user: current_user.friends).or(current_user.articles).order(created_at: :desc).limit(12)
   end
 
   # GET /articles/1 or /articles/1.json
-  def show; end
+  def show
+    @user_articles = current_user.articles
+  end
 
   # GET /articles/new
   def new
@@ -41,6 +38,8 @@ class ArticlesController < ApplicationController
 
   # PATCH/PUT /articles/1 or /articles/1.json
   def update
+    return unless current_user == @article.user
+
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to article_url(@article), notice: 'Article was successfully updated.' }
@@ -55,6 +54,8 @@ class ArticlesController < ApplicationController
 
   # DELETE /articles/1 or /articles/1.json
   def destroy
+    return unless current_user == @article.user
+
     @article.destroy
 
     respond_to do |format|

@@ -2,8 +2,4 @@
 
 one:
   requester: one
-  receiver: one
-
-two:
-  requester: two
   receiver: two

@@ -4,9 +4,12 @@ class UsersController < ApplicationController
 
   def index
     @users = User.where.not(id: current_user.id) # show users list but exclude the current user
-    @pending_requests = current_user.pending_requests # All pending and accepted
+    @pendings = current_user.pendings.ids
+    # @pending_requests = current_user.pending_requests # All pending and accepted
+    # @pendings = Friendship.pending.where(receiver: current_user).or(Friendship.pending)
+
     # Pending Requests Received
-    @friends_requests = Friendship.where(id: current_user.requests_received)
+    # @friends_requests = Friendship.where(id: current_user.requests_received)
   end
 
   def show; end
@@ -15,6 +18,5 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
-    @articles = @user.articles.order('created_at ASC')
   end
 end
