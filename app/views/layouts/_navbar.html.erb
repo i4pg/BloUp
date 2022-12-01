@@ -55,7 +55,7 @@
                       data: { turbo_frame: 'article_form' } %>
           <%= link_to edit_user_registration_path(id: current_user.id), class: 'is-responsive button is-info', data: { turbo_frame: 'articles' } do %>        
             Profile
-            <% new_request = current_user.request_received.where(status: 'pending') %>
+            <% new_request = current_user.requests_received.pending %>
             <% unless new_request.count.zero? %>
               <span id='requests_counter' title="Badge top right" class="badge is-danger is-top-left"><%= new_request.count %></span>
             <% end %>

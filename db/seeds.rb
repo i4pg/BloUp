@@ -7,13 +7,13 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 puts "\n== Seeding the database with fixtures =="
-system('bin/rails db:fixtures:load')
+# system('bin/rails db:fixtures:load')
 
 puts "\n== Seeding Users =="
 
 50.times do
   User.create(username: Faker::Internet.unique.username, email: Faker::Internet.email,
-              password: Devise::Encryptor.digest(User, 'password'), bio: Faker::Quotes::Shakespeare.hamlet_quote).save!
+              password: 'password', bio: Faker::Quotes::Shakespeare.hamlet_quote).save!
 end
 
 u = User.first
@@ -31,5 +31,5 @@ end
 puts "\n== Seeding Friends requests =="
 
 User.all.each do |user|
-  user.requested_friends.build(receiver_id: u.id).save unless user == u
+  user.sent_requests.build(receiver_id: u.id).save unless user == u
 end

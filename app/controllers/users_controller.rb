@@ -4,9 +4,9 @@ class UsersController < ApplicationController
 
   def index
     @users = User.where.not(id: current_user.id) # show users list but exclude the current user
-    @requests = current_user.requests # All pending and accepted
+    @pending_requests = current_user.pending_requests # All pending and accepted
     # Pending Requests Received
-    @friends_requests = FriendRequest.where(id: current_user.request_received)
+    @friends_requests = Friendship.where(id: current_user.requests_received)
   end
 
   def show; end

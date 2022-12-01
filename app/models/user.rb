@@ -8,9 +8,12 @@ class User < ApplicationRecord
 
   has_many :articles, -> { order(created_at: :desc) }, dependent: :destroy
 
-  has_many :requested_friends, foreign_key: 'requestor_id', class_name: 'FriendRequest', dependent: :destroy
-  has_many :request_received, foreign_key: 'receiver_id', class_name: 'FriendRequest', dependent: :destroy
-  has_many :friends, foreign_key: 'user_id', class_name: 'User', dependent: :destroy
+  belongs_to :friend, class_name: 'User', optional: true
+  has_many :friends, class_name: 'User', foreign_key: 'friend_id'
+
+  has_many :sent_requests, foreign_key: 'requester_id', class_name: 'Friendship', dependent: :destroy
+  has_many :received_requests, foreign_key: 'receiver_id', class_name: 'Friendship', dependent: :destroy
+  # has_many :friends, -> { where(accepted_requests) }, class_name: 'User', foreign_key: 'user_id'
 
   # we sure to add case insensitivity to your validations on :username
   validates :username, presence: true, uniqueness: { case_sensitive: false }
@@ -23,23 +26,49 @@ class User < ApplicationRecord
   # Add login as an User
   attr_writer :login
 
-  def friends_accept
-    request_received.accepted.or(requested_friends.accepted)
-  end
+  # def accepted_requests
+  #   requests_received.accepted.or(requested_friends.accepted)
+  # end
 
-  def pending_requests
-    request_received.pending.or(requested_friends.pending)
-  end
+  # def friendss(list = [])
+  #   requests_received.accepted.map do |req|
+  #     list << req.requester
+  #   end
+  #   requested_friends.accepted.map do |req|
+  #     list << req.receiver
+  #   end
+  #   list
+  # end
 
-  def home(list = [])
-    articles.each { |article| list << article }
-    friends.each do |id|
-      User.find(id).articles.each do |article|
-        list << article
-      end
-    end
-    list
-  end
+  # def pendings(list = [])
+  #   requests_received.pending.map do |req|
+  #     list << req.requester
+  #   end
+  #   requested_friends.pending.map do |req|
+  #     list << req.receiver
+  #   end
+  #   list
+  # end
+
+  # def home(list = [])
+  #   friends.each { |f| list << f }
+  #   articles.each { |article| list << article }
+  #   list
+  # end
+
+  # def pending_requests
+  #   requests_received.pending.or(requested_friends.pending)
+  # end
+
+  # def home(list = [])
+  #   articles.each { |article| list << article }
+  #   friends.each do |id|
+  #     User.find(id).articles.each do |article|
+  #       list << article
+  #     end
+  #   end
+  #   list
+  # end
 
   def validate_username
     errors.add(:username, :invalid) if User.where(email: username).exists?

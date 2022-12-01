@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
   # GET /articles or /articles.json
   def index
     @articles = if user_signed_in?
-                  current_user.articles.or(current_user.friends.articles)
+                  current_user.home
                 else
                   Article.includes(:user).order('created_at DESC').limit(10)
 

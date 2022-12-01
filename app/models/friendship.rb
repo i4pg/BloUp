@@ -41,9 +41,8 @@ class Friendship < ApplicationRecord
   end
 
   def destroy_request
-    return puts 'as' unless accepted?
+    return unless accepted?
 
     destroy!
-    puts 'ok '
   end
 end
