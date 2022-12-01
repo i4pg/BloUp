@@ -29,49 +29,17 @@ class User < ApplicationRecord
   # Add login as an User
   attr_writer :login
 
-  # def accepted_requests
-  #   requests_received.accepted.or(requested_friends.accepted)
-  # end
-
-  # def friendss(list = [])
-  #   requests_received.accepted.map do |req|
-  #     list << req.requester
-  #   end
-  #   requested_friends.accepted.map do |req|
-  #     list << req.receiver
-  #   end
-  #   list
-  # end
-
-  # def pendings(list = [])
-  #   requests_received.pending.map do |req|
-  #     list << req.requester
-  #   end
-  #   requested_friends.pending.map do |req|
-  #     list << req.receiver
-  #   end
-  #   list
-  # end
-
-  # def home(list = [])
-  #   friends.each { |f| list << f }
-  #   articles.each { |article| list << article }
-  #   list
-  # end
-
   def pendings
     received_requests.pending.or(sent_requests.pending)
   end
 
-  # def home(list = [])
-  #   articles.each { |article| list << article }
-  #   friends.each do |id|
-  #     User.find(id).articles.each do |article|
-  #       list << article
-  #     end
-  #   end
-  #   list
-  # end
+  def pending_ids(arr = [])
+    pendings.find_each do |pending_request|
+      arr << pending_request.requester_id unless pending_request.requester == self
+      arr << pending_request.receiver_id unless pending_request.receiver == self
+    end
+    arr
+  end
 
   def validate_username
     errors.add(:username, :invalid) if User.where(email: username).exists?

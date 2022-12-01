@@ -7,30 +7,30 @@
     </div>
 
     <div class="media-content">
-      <div class="title is-responsive is-family-monospace" style="margin-top: 1rem">@<%= user.username %></div>
+      <p class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= user.username %></p>
   <% end %>
     </div>
 
     <div class="media-right">
-      <% unless current_user.friends.include?(user) %>
 
-        <% unless @pendings.include?(user.id) %>
-          <%= button_to friendship_path(receiver: user),
-              class: "icon is-success button is-rounded",
-              data: { turbo_stream: "users" },
-              method: :post,
-              title: "Send request", 
-              style: "margin-top: .9rem;" do %>
-                <i class="fa-solid fa-user-plus"></i>
-          <% end %>
-        <% end %>
-
-        <% if @pendings.include?(user.id) %>
-          <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem"disabled>
+      <% unless @ids.include?(user.id) || @friends.include?(user) %>
+       <%= button_to friendships_url,
+          params: { receiver_id: user.id },
+          class: "icon is-success button is-rounded",
+          #data: { turbo_stream: "users" },
+          method: :post,
+          title: "Send request", 
+          style: "margin-top: .9rem;" do %>
             <i class="fa-solid fa-user-plus"></i>
-          </span>
-        <% end %>
-        <% end %>
+          <% end %>
+     <% end %>
+
+      <% if @ids.include?(user.id) %>
+        <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem"disabled>
+          <i class="fa-solid fa-user-plus"></i>
+        </span>
+      <% end %>
 
     </div>
+
 </div>

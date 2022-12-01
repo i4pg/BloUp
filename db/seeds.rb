@@ -16,7 +16,7 @@ puts "\n== Seeding Users =="
               password: 'password', bio: Faker::Quotes::Shakespeare.hamlet_quote).save!
 end
 
-u = User.first
+au = User.first
 
 puts "\n== Seeding Articles =="
 
@@ -31,5 +31,5 @@ end
 puts "\n== Seeding Friends requests =="
 
 User.all.each do |user|
-  user.sent_requests.build(receiver_id: u.id).save unless user == u
+  user.sent_requests.build(receiver_id: au.id).save unless user == au
 end

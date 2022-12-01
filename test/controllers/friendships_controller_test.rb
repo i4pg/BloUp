@@ -15,23 +15,24 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
   test 'should send a friend request' do
     assert_difference('Friendship.count', +1) do
       post friendships_url,
-           params: { receiver: users(:three), requestor: users(:two) }
+           params: { receiver_id: users(:three).id, requester_id: users(:two).id, status: :pending }
     end
-
     # assert_redirected_to users_path
   end
 
-  # test 'should update friendship' do
-  #   patch friendship_url(@friendship),
-  #         params: { requestor_id: users(:two).id, receiver_id: users(:three).id, status: 'accepted' }
-  #   assert_redirected_to friendships_url
-  # end
+  test 'should destroy friendship record after accept' do
+    assert_difference('Friendship.count', -1) do
+      patch friendship_url(friendships(:one)),
+            params: { status: :accepted }
+    end
+    # assert_redirected_to friendships_url
+  end
 
-  # test 'should destroy friendship' do
-  #   assert_difference('Friendship.count', -1) do
-  #     delete friendship_url(@friendship)
-  #   end
+  test 'should destroy friendship directly when ignoring the request' do
+    assert_difference('Friendship.count', -1) do
+      delete friendship_url(friendships(:one))
+    end
 
-  #   assert_redirected_to friendships_url
-  # end
+    # assert_redirected_to friendships_url
+  end
 end

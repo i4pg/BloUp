@@ -5,11 +5,8 @@ class UsersController < ApplicationController
   def index
     @users = User.where.not(id: current_user.id) # show users list but exclude the current user
     @pendings = current_user.pendings.ids
-    # @pending_requests = current_user.pending_requests # All pending and accepted
-    # @pendings = Friendship.pending.where(receiver: current_user).or(Friendship.pending)
-
-    # Pending Requests Received
-    # @friends_requests = Friendship.where(id: current_user.requests_received)
+    @friends = current_user.friends
+    @ids = current_user.pending_ids
   end
 
   def show; end

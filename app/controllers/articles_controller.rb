@@ -4,7 +4,12 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = Article.includes(:user).where(user: current_user.friends).or(current_user.articles).order(created_at: :desc).limit(12)
+    if user_signed_in?
+
+      @articles = Article.includes(:user).where(user: current_user.friends).or(current_user.articles).order(created_at: :desc).limit(12)
+    else
+      @articles = Article.includes(:user).limit(12).order(created_at: :desc)
+    end
   end
 
   # GET /articles/1 or /articles/1.json
