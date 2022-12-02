@@ -13,7 +13,7 @@
 
     <div class="media-right">
 
-      <% unless @ids.include?(user.id) || @friends.include?(user) %>
+      <% unless @pending_ids.include?(user.id) || @friends.include?(user) %>
        <%= button_to friendships_url,
           params: { receiver_id: user.id },
           class: "icon is-success button is-rounded",
@@ -25,7 +25,7 @@
           <% end %>
      <% end %>
 
-      <% if @ids.include?(user.id) %>
+      <% if @pending_ids.include?(user.id) %>
         <span class="icon button is-rounded" title="Pending request" style="margin-top: .9rem"disabled>
           <i class="fa-solid fa-user-plus"></i>
         </span>

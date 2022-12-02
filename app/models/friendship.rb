@@ -11,8 +11,8 @@ class Friendship < ApplicationRecord
 
   private
 
-  # after_commit :prepend_request, on: :create
-  # after_commit :send_requests_counter, on: %i[create update destroy]
+  after_commit :prepend_request, on: :create
+  after_commit :send_requests_counter, on: %i[create update destroy]
 
   def prepend_request
     broadcast_prepend_to([receiver, 'new_request_stream'], target: 'new_request')
