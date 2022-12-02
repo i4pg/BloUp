@@ -8,7 +8,9 @@ class UsersController < ApplicationController
     @pending_ids = current_user.pending_ids
   end
 
-  def show; end
+  def show
+    @articles = @user.articles
+  end
 
   private
 
