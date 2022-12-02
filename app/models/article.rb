@@ -2,7 +2,7 @@ class Article < ApplicationRecord
   validates :body, presence: true
 
   belongs_to :user
-  has_many :likes, dependent: :destroy
+  # has_many :likes, dependent: :destroy
 
   # 1. partial 'articles/_article'
   # 2. look for turbo stream with id 'article_stream'

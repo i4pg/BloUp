@@ -4,8 +4,6 @@ class FriendshipTest < ActiveSupport::TestCase
   setup do
     @requester = users(:one)
     @receiver = users(:two)
-    request = @requester.sent_requests.build(receiver: @receiver)
-    assert request.save, 'Users can not send friend requests'
   end
 
   test 'The receiver can not send a request to the requestor once again' do
