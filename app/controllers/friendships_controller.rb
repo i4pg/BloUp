@@ -6,8 +6,7 @@ class FriendshipsController < ApplicationController
   def index
     @friendships = current_user.received_requests.includes(:requester).pending
     @friends = current_user.friends
-    @pendings = current_user.pendings.includes(:receiver).ids
-    @ids = current_user.pending_ids
+    @pending_ids = current_user.pending_ids
   end
 
   # GET /friendships/1 or /friendships/1.json
