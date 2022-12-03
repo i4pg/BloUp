@@ -7,8 +7,12 @@ class LikesController < ApplicationController
       @like = @article.likes.create(user: @user)
 
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.update("article_#{@article.id}", @article.likes.count) }
-        # format.html { redirect_to articles_path, notice: 'Like' } if @like.save
+        if @like.save
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.update("article_#{@article.id}", @article.likes.count)
+          end
+          format.html { redirect_to articles_path, notice: 'Like' }
+        end
       end
     else
       destroy
