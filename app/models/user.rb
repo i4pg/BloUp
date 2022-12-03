@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   has_many :articles, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   # to remove assocation just call delete
   # if you add dependent: :destroy to has_many (no need for belongs_to)
