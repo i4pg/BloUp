@@ -1,0 +1,12 @@
+<% like = current_user.likes.find_by(article: article) %>
+<%= button_to likes_url,
+  params: {article_id: article.id},
+  mathod: :post,
+  class: "level-item",
+  title: "Like" do %>
+    <span class="icon is-small">
+      <i class="fas fa-heart"></i>
+    </span>&nbsp;
+    <small><span id="<%= dom_id article %>"><%= article.likes.count unless article.likes.count.zero? %></span></small>
+  <% end %>
+
