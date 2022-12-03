@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   resources :articles
   resources :users, only: %i[index show]
   resources :friendships, except: %i[new edit]
-  resources :likes, only: %i[create destroy]
+  resources :likes, only: %i[create]
 end

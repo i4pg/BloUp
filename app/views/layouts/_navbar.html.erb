@@ -1,4 +1,3 @@
-<%= turbo_stream_from 'friend_requests_count_stream' %>
 <nav class="navbar has-shadow is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
 <%= link_to root_path, class: "navbar-item" do %>
@@ -53,13 +52,19 @@
                       new_article_path,
                       class: "button is-responsive",
                       data: { turbo_frame: 'article_form' } %>
-          <%= link_to edit_user_registration_path(id: current_user.id), class: 'is-responsive button is-info', data: { turbo_frame: 'articles' } do %>        
-            Profile
-            <% new_request = current_user.received_requests.pending %>
-            <% unless new_request.count.zero? %>
-              <span id='requests_counter' title="Badge top right" class="badge is-danger is-top-left"><%= new_request.count %></span>
-            <% end %>
-          <% end %>
+
+                    <%= turbo_stream_from current_user,'friend_requests_count_stream' %>
+                    <%= link_to edit_user_registration_path(
+                      id: current_user.id),
+                      class: 'is-responsive button is-info',
+                      data: { turbo_frame: 'articles' } do %>        
+                        Profile
+                      <% new_request = current_user.received_requests.pending %>
+                      <% unless new_request.count.zero? %>
+                        <span id='requests_counter' title="Badge top right" class="badge is-danger is-top-left"><%= new_request.count %></span>
+                      <% end %>
+                    <% end %>
+
           <%= button_to('Logout', destroy_user_session_path, method: :delete, class: "is-responsive button is-light")  %> 
         <% else %>
           <%= link_to('Login', new_user_session_path ,  class: "button is-light is-responsive", data: { turbo_frame: "articles" }) %>  
@@ -71,3 +76,4 @@
 
   </div>
 </nav>
+
