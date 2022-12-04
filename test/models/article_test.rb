@@ -11,7 +11,7 @@ class ArticleTest < ActiveSupport::TestCase
     assert_not article.save, 'Saved the article without a user'
   end
 
-  test 'Should save article with user and and body' do
+  test 'Should save article with user and body' do
     article = Article.new(user_id: users(:one).id, body: 'good')
     assert article.save, 'Saved article with user and body'
   end

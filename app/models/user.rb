@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :articles, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :comments, foreign_key: 'commenter_id', class_name: 'Comment', dependent: :destroy
 
   # to remove assocation just call delete
   # if you add dependent: :destroy to has_many (no need for belongs_to)

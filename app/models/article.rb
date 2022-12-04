@@ -3,6 +3,7 @@ class Article < ApplicationRecord
 
   belongs_to :user
   has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   # 1. partial 'articles/_article'
   # 2. look for turbo stream with id 'article_stream'

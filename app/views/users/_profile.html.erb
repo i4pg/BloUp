@@ -2,7 +2,7 @@
   
   <div class="media-left">
     <figure class="image is-64x64">
-      <img class="is-rounded" src="<%= Faker::Avatar.image %>">
+      <%= image_tag rails_storage_proxy_path(user.avatar), class: "is-rounded" %>
     </figure>
   </div>
 

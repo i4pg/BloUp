@@ -4,8 +4,9 @@ class Like < ApplicationRecord
   belongs_to :article
   after_commit :likes_counter
 
+  private
+
   def likes_counter
-    counter = article.likes.count
-    broadcast_update_to(article, target: article, html: counter)
+    broadcast_update_to(article, target: article, html: article.likes.count)
   end
 end
