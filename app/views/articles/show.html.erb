@@ -1,25 +1,17 @@
 <%= turbo_frame_tag 'articles' do %>
-
+  
   <%= turbo_frame_tag 'article_form' %>
   <%= turbo_frame_tag 'updated_article', class: "section" do %>
     <%= render @article %>
   <% end %>
   
-  <div class="section">
+  <div class="section" id="comments">
+    <%= turbo_stream_from @article,'comment_stream' %>
     <%= render @comments %>
     <%= render 'comments/form', article: @article %>
   </div>
 
   <div class="buttons">
-    <% if current_user == @article.user %>
-      <%= link_to "Edit", edit_article_path(@article),
-                          data: { turbo_frame: "article_form" },
-                          class: "button is-primary" %>
-      <%= button_to "Remove",
-         @article,
-         method: :delete,
-         class: "button is-danger" %>
-    <% end %>
-    <%= link_to "Back", articles_path, class: "button is-link" %>
+    <%= render "articles/show/buttons/edit_remove_buttons" %>
   </div>
 <% end %>

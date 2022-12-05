@@ -8,18 +8,29 @@
   <% end %>
 
   <%= turbo_frame_tag 'partial_article' do %>
+  <%= link_to user_url(article.user), class: "has-text-black", data: {turbo_frame: 'articles'} do %>
   <div class="media-content">
     <div class="content ">
       <p class="is-family-monospace">
         <strong>@<%= article.user.username %></strong> <small><%= time_ago_in_words(article.created_at) %></small>
+  <% end %>
         <br>
+  <%= link_to article_url(article), class: "has-text-black is-success", data: {turbo_frame: 'articles'} do %>
           <%= article.body %>
       </p>
     </div>
+  <% end %>
 
+    
     <nav class="level is-mobile">
       <div class="level-left">
-        <%= render "articles/show/buttons", article: article %>
+        <% if user_signed_in? %>
+          <%= render "articles/show/buttons/likes_signed", article: article %>
+        <% else %>
+
+<%# write some logic hhere for unsigned user  %>
+
+        <% end %>
       </div>
     </nav>
   <% end %>

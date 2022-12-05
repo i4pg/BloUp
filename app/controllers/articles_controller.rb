@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1 or /articles/1.json
   def show
-    @comments = @article.comments
+    @comments = @article.comments.order(created_at: :desc)
   end
 
   # GET /articles/new
