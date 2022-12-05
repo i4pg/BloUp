@@ -11,21 +11,20 @@ class Friendship < ApplicationRecord
 
   private
 
-  after_commit :prepend_request, on: :create
-  after_commit :send_requests_counter
-
-  def prepend_request
-    broadcast_prepend_to([receiver, 'new_request_stream'], target: 'new_request')
-  end
+  # after_commit :prepend_request, on: :create
+  # after_commit :send_requests_counter
+  broadcasts_to lambda { |request|
+                  [request.receiver, 'new_request_stream']
+                }, inserts_by: :prepend, target: 'new_request', on: :create
 
   def send_requests_counter
     counter = receiver.received_requests.pending.count
 
     if counter.zero?
-      broadcast_remove_to([receiver, 'friend_requests_count_stream'], target: 'requests_counter')
+      broadcast_remove_to([receiver, 'requests_count_stream'], target: 'requests_counter')
     else
-      broadcast_update_to([receiver, 'friend_requests_count_stream'], target: 'requests_counter',
-                                                                      html: counter)
+      broadcast_update_to([receiver, 'requests_count_stream'], target: 'requests_counter',
+                                                               html: counter)
     end
   end
 
