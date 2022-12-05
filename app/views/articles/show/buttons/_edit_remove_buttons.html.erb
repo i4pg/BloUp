@@ -1,0 +1,10 @@
+<% if current_user == @article.user %>
+  <%= link_to "Edit", edit_article_path(@article),
+                      data: { turbo_frame: "article_form" },
+                      class: "button is-primary" %>
+  <%= button_to "Remove",
+     @article,
+     method: :delete,
+     class: "button is-danger" %>
+<% end %>
+<%= link_to "Back", articles_path, class: "button is-link" %>

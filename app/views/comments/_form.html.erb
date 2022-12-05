@@ -1,0 +1,26 @@
+<%= form_with(model: [@article, @article.comments.build]) do |form| %>
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <%# image_tag rails_storage_proxy_path(current_user.avatar), class: "is-rounded"  %>
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="field">
+      <p class="control">
+        <%= form.text_area :body, class: "textarea", placeholder: "Write a comment..." %>
+      </p>
+    </div>
+    <nav class="level">
+      <div class="level-left">
+        <div class="level-item buttons">
+          <%= form.submit 'Reply',
+            class: "button is-success" %>
+          <%= link_to "Cancel", :back,
+                                class: "button is-info" %>
+        </div>
+      </div>
+    </nav>
+  </div>
+</article> <br>
+<% end %>

@@ -2,7 +2,7 @@
   <%= link_to user_url(article.user), class: "has-text-black", data: {turbo_frame: 'articles'} do %>
   <figure class="media-left">
     <p class="image is-64x64">
-      <%= image_tag rails_storage_proxy_path(article.user.avatar), class: "is-rounded"  %>
+      <%# image_tag rails_storage_proxy_path(article.user.avatar), class: "is-rounded"  %>
     </p>
   </figure>
   <% end %>

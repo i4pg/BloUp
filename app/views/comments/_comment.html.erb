@@ -1,0 +1,19 @@
+<article class="media comment">
+  <%= link_to user_url(comment.commenter), class: "has-text-black", data: {turbo_frame: 'comments'} do %>
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <%# image_tag rails_storage_proxy_path(comment.user.avatar), class: "is-rounded"  %>
+    </p>
+  </figure>
+  <% end %>
+
+  <div class="media-content">
+    <div class="content ">
+      <p class="is-family-monospace">
+        <strong>@<%= comment.commenter.username %></strong> <small><%= time_ago_in_words(comment.created_at) %></small>
+        <br>
+          <%= comment.body %>
+      </p>
+    </div>
+  </div>
+</article>
