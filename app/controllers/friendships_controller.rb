@@ -9,9 +9,6 @@ class FriendshipsController < ApplicationController
     @pending_ids = current_user.pending_ids
   end
 
-  # GET /friendships/1 or /friendships/1.json
-  def show; end
-
   # POST /friendships or /friendships.json
   def create
     @friendship = current_user.sent_requests.create(friendship_params)
@@ -30,8 +27,6 @@ class FriendshipsController < ApplicationController
 
   # PATCH/PUT /friendships/1 or /friendships/1.json
   def update
-    # @friendship = current_user.sent_requests.find(params[:friendship]).update(status: :accepted)
-
     respond_to do |format|
       if @friendship.update(friendship_params)
         format.html { redirect_to friendships_path, notice: 'Friend request accepted.' }
