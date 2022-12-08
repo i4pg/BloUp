@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FriendshipTest < ActiveSupport::TestCase
+class FriendRequestTest < ActiveSupport::TestCase
   setup do
     @requester = users(:one)
     @receiver = users(:two)

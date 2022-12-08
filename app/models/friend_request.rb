@@ -1,5 +1,5 @@
-class Friendship < ApplicationRecord
-  validates_with FriendshipValidator, on: :create
+class FriendRequest < ApplicationRecord
+  validates_with FriendRequestValidator, on: :create
 
   belongs_to :requester, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
@@ -7,7 +7,7 @@ class Friendship < ApplicationRecord
   enum :status, %i[pending accepted], default: :pending, null: false
 
   # See below for more details
-  after_update :add_to_user_friends
+  after_update :accepted!
 
   private
 
@@ -29,15 +29,15 @@ class Friendship < ApplicationRecord
   end
 
   # When friend request status changed to accepted
-  # call this method to make the friendship relation by
+  # call this method to make the friend_request relation by
   # appending users to each other
-  # then call the destroy method to destroy the Friendship record
+  # then call the destroy method to destroy the FriendRequest record
   # otherwise we'll have a pounch of accepted record that's does not do anything
-  def add_to_user_friends
-    return unless accepted?
+  def accepted!
+    return unless accepted? && id == receiver.id
 
-    requester.friends << receiver
-    receiver.friends << requester
+    receiver.friendship.build(friend: requester).save!
+    requester.friendship.build(friend: receiver).save!
     destroy!
   end
 end

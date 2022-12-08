@@ -1,13 +1,13 @@
 require 'application_system_test_case'
 
-class FriendshipsTest < ApplicationSystemTestCase
+class FriendRequestsTest < ApplicationSystemTestCase
   setup do
-    Friendship.destroy_all
+    FriendRequest.destroy_all
     login_as users(:one)
   end
 
   test 'visiting the index' do
-    visit friendships_path
+    visit friend_requests_path
 
     assert_selector 'h1', text: 'Friends Requests'
   end
@@ -15,7 +15,7 @@ class FriendshipsTest < ApplicationSystemTestCase
   test 'should send friend request' do
     visit users_url
     assert_selector 'span', text: 'Friends'
-    assert_difference('Friendship.count', +1) do
+    assert_difference('FriendRequest.count', +1) do
       click_on 'Send request', match: :first
     end
     assert_selector 'span', class: 'button', text: ''
@@ -25,16 +25,16 @@ class FriendshipsTest < ApplicationSystemTestCase
     # Idk i've to repeat sending request process
     visit users_url
     assert_selector 'span', text: 'Friends'
-    assert_difference('Friendship.count', +1) do
+    assert_difference('FriendRequest.count', +1) do
       click_on 'Send request', match: :first
     end
     assert_selector 'span', class: 'button', text: ''
 
     # login as second user to accept the first test request
     login_as users(:two)
-    visit friendships_path
+    visit friend_requests_path
     assert_selector 'h1', text: 'Friends Requests'
-    assert_difference('Friendship.count', -1) do
+    assert_difference('FriendRequest.count', -1) do
       click_on 'Ignore request', match: :first
     end
   end
@@ -44,15 +44,15 @@ class FriendshipsTest < ApplicationSystemTestCase
     login_as users(:one)
     visit users_url
     assert_selector 'span', text: 'Friends'
-    assert_difference('Friendship.count', +1) do
+    assert_difference('FriendRequest.count', +1) do
       click_on 'Send request', match: :first
     end
     assert_selector 'span', class: 'button', text: ''
 
     login_as users(:two)
-    visit friendships_path
+    visit friend_requests_path
     assert_selector 'h1', text: 'Friends Requests'
-    assert_difference('Friendship.count', -1) do
+    assert_difference('FriendRequest.count', -1) do
       click_on 'Accept request', match: :first
       assert_selector 'h1', text: 'Friends List'
       assert_selector 'div', text: '@' + users(:one).username

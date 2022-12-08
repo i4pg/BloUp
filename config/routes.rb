@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i[index show]
-  resources :friendships, except: %i[new edit]
+  resources :friend_requests, except: %i[new edit]
   resources :likes, only: %i[create]
 end
