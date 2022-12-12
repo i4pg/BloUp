@@ -24,13 +24,21 @@
     
     <nav class="level is-mobile">
       <div class="level-left">
-        <% if user_signed_in? %>
-          <%= render "articles/show/buttons/likes_signed", article: article %>
-        <% else %>
-
-<%# write some logic hhere for unsigned user  %>
-
-        <% end %>
+        <%= turbo_stream_from 'like_stream' %>
+        <%= button_to likes_path,
+          params: {article_id: article.id},
+          mathod: :post,
+          class: "level-item",
+          title: "Likes" do %>
+            <span class="icon is-small">
+              <i class="fas fa-heart"></i>
+            </span>&nbsp;
+            <small>
+              <span id="likes <%= dom_id article %>">
+                <%= article.likes.count unless article.likes.count.zero? %>
+              </span>
+            </small>
+          <% end %>
       </div>
     </nav>
   <% end %>

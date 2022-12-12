@@ -6,16 +6,15 @@ class FriendRequest < ApplicationRecord
 
   enum :status, %i[pending accepted], default: :pending, null: false
 
-  # See below for more details
-  after_update :accepted!
+  after_update :make_friendship!
 
-  private
+  after_commit :send_requests_counter
 
-  # after_commit :prepend_request, on: :create
-  # after_commit :send_requests_counter
   broadcasts_to lambda { |request|
                   [request.receiver, 'new_request_stream']
                 }, inserts_by: :prepend, target: 'new_request', on: :create
+
+  private
 
   def send_requests_counter
     counter = receiver.received_requests.pending.count
@@ -28,16 +27,11 @@ class FriendRequest < ApplicationRecord
     end
   end
 
-  # When friend request status changed to accepted
-  # call this method to make the friend_request relation by
-  # appending users to each other
-  # then call the destroy method to destroy the FriendRequest record
-  # otherwise we'll have a pounch of accepted record that's does not do anything
-  def accepted!
-    return unless accepted? && id == receiver.id
+  def make_friendship!
+    return unless accepted?
 
-    receiver.friendship.build(friend: requester).save!
-    requester.friendship.build(friend: receiver).save!
+    receiver.friendships.build(friend: requester).save!
+    requester.friendships.build(friend: receiver).save!
     destroy!
   end
 end

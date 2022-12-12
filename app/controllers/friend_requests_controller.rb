@@ -4,7 +4,7 @@ class FriendRequestsController < ApplicationController
 
   # GET /friend_requests or /friend_requests.json
   def index
-    @friend_requests = current_user.received_requests.includes(:requester).pending
+    @friend_requests = current_user.received_requests
     @friends = current_user.friends
     @pending_ids = current_user.pending_ids
   end
@@ -32,8 +32,7 @@ class FriendRequestsController < ApplicationController
         format.html { redirect_to friend_requests_path, notice: 'Friend request accepted.' }
         format.json { render :show, status: :ok, location: @friend_request }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @friend_request.errors, status: :unprocessable_entity }
+        format.html { redirect_to friend_requests_path, status: :unprocessable_entity }
       end
     end
   end

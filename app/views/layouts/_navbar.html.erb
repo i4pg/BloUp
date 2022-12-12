@@ -53,7 +53,7 @@
                       class: "button is-responsive",
                       data: { turbo_frame: 'article_form' } %>
 
-                    <%= turbo_stream_from current_user,'friend_requests_count_stream' %>
+                    <%= turbo_stream_from current_user,'requests_count_stream' %>
                     <%= link_to edit_user_registration_path(
                       id: current_user.id),
                       class: 'is-responsive button is-info',

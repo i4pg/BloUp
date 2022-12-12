@@ -1,17 +1,17 @@
 <div class="p-2 box media">
 
-<%= link_to user_url(friendship.requester_id), class: "media-left" do %>
+<%= link_to user_url(friend_request.requester_id), class: "media-left" do %>
   <figure class="image is-48x48">
     <img class="is-rounded" src="<%= Faker::Avatar.image %>">
   </figure>
 <% end %>
 
-<%= link_to user_url(friendship.requester_id), class: "media-content" do %>
-  <p class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= User.find(friendship.requester_id).username %></p>
+<%= link_to user_url(friend_request.requester_id), class: "media-content" do %>
+  <p class="title is-6 is-family-monospace" style="margin-top: 1rem">@<%= User.find(friend_request.requester_id).username %></p>
 <% end %>
 
 <div class="media-right is-mobile level pt-3">
-  <%= button_to friendship,
+  <%= button_to friend_request,
     params:{status: :accepted} ,
     mathod: :patch,
     title: "Accept request",
@@ -19,7 +19,7 @@
     <i class="fa-solid fa-circle-check"></i>
   <% end %>
 
-  <%= button_to friendship, method: :delete,
+  <%= button_to friend_request, method: :delete,
                                 class: "is-danger icon button is-rounded level-item",
                                 title: "Ignore request" do %>
     <i class="fa-solid fa-circle-xmark"></i>

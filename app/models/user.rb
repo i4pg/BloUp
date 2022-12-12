@@ -14,11 +14,11 @@ class User < ApplicationRecord
   # if you add dependent: :destroy to has_many (no need for belongs_to)
   # this will destroy the user entirely from the db
   # either delete or destroy, delete_all or destroy_all
-  belongs_to :friend, class_name: 'User', optional: true
-  has_many :friends, class_name: 'User', foreign_key: 'friend_id'
+  has_many :friendships, dependent: :destroy
+  has_many :friends, through: :friendships, dependent: :destroy
 
-  has_many :sent_requests, foreign_key: 'requester_id', class_name: 'Friendship', dependent: :destroy
-  has_many :received_requests, foreign_key: 'receiver_id', class_name: 'Friendship', dependent: :destroy
+  has_many :sent_requests, foreign_key: 'requester_id', class_name: 'FriendRequest', dependent: :destroy
+  has_many :received_requests, foreign_key: 'receiver_id', class_name: 'FriendRequest', dependent: :destroy
 
   # we sure to add case insensitivity to your validations on :username
   validates :username, presence: true, uniqueness: { case_sensitive: false }

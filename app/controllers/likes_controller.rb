@@ -9,7 +9,7 @@ class LikesController < ApplicationController
       respond_to do |format|
         if @like.save
           format.turbo_stream do
-            render turbo_stream: turbo_stream.update("article_#{@article.id}", @article.likes.count)
+            render turbo_stream: turbo_stream.update("likes article_#{@article.id}", @article.likes.count)
           end
           format.html { redirect_to articles_path, notice: 'Like' }
         end
@@ -24,7 +24,9 @@ class LikesController < ApplicationController
 
     @like.destroy
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.update("article_#{@article.id}", @article.likes.count) }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update("likes article_#{@article.id}", @article.likes.count)
+      end
       format.html { redirect_to articles_url }
       format.json { head :no_content }
     end

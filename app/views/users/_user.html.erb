@@ -14,10 +14,9 @@
     <div class="media-right">
 
       <% unless @pending_ids.include?(user.id) || @friends.include?(user) %>
-       <%= button_to friendships_url,
+       <%= button_to friend_requests_url,
           params: { receiver_id: user.id },
           class: "icon is-success button is-rounded",
-          #data: { turbo_stream: "users" },
           method: :post,
           title: "Send request", 
           style: "margin-top: .9rem;" do %>
