@@ -2,7 +2,7 @@ require 'application_system_test_case'
 
 class UsersTest < ApplicationSystemTestCase
   setup do
-    Friendship.destroy_all
+    FriendRequest.destroy_all
     Warden.test_reset!
     login_as users(:one)
     @user = users(:one)
@@ -16,7 +16,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'Sending friend requests' do
-    assert_difference('Friendship.count', +1) do
+    assert_difference('FriendRequest.count', +1) do
       visit users_path
 
       assert_selector '.title', text: @user_2.username

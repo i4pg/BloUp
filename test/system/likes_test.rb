@@ -16,7 +16,7 @@ class LikesTest < ApplicationSystemTestCase
     assert_difference('@article2.likes.count', +1) do
       click_on 'Likes', match: :first
     end
-    assert_selector 'span', text: @article2.likes.count, id: "article_#{@article2.id}"
+    assert_selector 'span', text: @article2.likes.count, id: "likes article_#{@article2.id}"
   end
 
   test "decrement article's like counter if user already like an article" do
@@ -28,6 +28,6 @@ class LikesTest < ApplicationSystemTestCase
     assert_difference('@article1.likes.count', -1) do
       click_on 'Likes', match: :first
     end
-    assert_selector 'span', text: @article1.likes.count, id: "article_#{@article1.id}"
+    assert_selector 'span', text: @article1.likes.count, id: "likes article_#{@article1.id}"
   end
 end

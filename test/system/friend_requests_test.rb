@@ -6,12 +6,6 @@ class FriendRequestsTest < ApplicationSystemTestCase
     login_as users(:one)
   end
 
-  test 'visiting the index' do
-    visit friend_requests_path
-
-    assert_selector 'h1', text: 'Friends Requests'
-  end
-
   test 'should send friend request' do
     visit users_url
     assert_selector 'span', text: 'Friends'
