@@ -7,6 +7,10 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
+  def displayed_avatar
+    avatar.attached? ? avatar : Faker::Avatar.image # 'default_avatar.jpg'
+  end
+
   has_many :articles, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, foreign_key: 'commenter_id', class_name: 'Comment', dependent: :destroy

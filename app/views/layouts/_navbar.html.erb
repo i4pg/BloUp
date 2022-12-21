@@ -49,7 +49,7 @@
       <%= turbo_frame_tag 'sign_buttons', class: "buttons" do %>
         <% if user_signed_in? %>
           <%= link_to "New article",
-                      new_article_path,
+                      new_article_url,
                       class: "button is-responsive",
                       data: { turbo_frame: 'article_form' } %>
 
