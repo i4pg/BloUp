@@ -83,3 +83,5 @@ gem 'guard', '~> 2.18'
 gem 'omniauth-facebook'
 
 gem 'omniauth-rails_csrf_protection'
+
+gem "figaro", "~> 1.2"
