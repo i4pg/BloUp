@@ -4,6 +4,11 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
+  <div class="buttons">
+    <div class="control">
+    </div>
+  </div>
+
   <div class="field">
     <%= f.label :login, class: "label" %>
     <div class="control">
@@ -33,6 +38,7 @@
 <%= render "devise/shared/links" %>
 <% end %>
 
+      <%= button_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "button is-link" %>
 <% end %>
   </div>
 </section>

@@ -79,3 +79,7 @@ gem 'faker', '~> 3.0'
 gem 'devise', '~> 4.8'
 
 gem 'guard', '~> 2.18'
+
+gem 'omniauth-facebook'
+
+gem 'omniauth-rails_csrf_protection'
