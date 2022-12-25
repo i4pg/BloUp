@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'articles#index'
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users,
+             controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
+                            registrations: 'users/registrations_callbacks' }
 
   resources :articles do
     resources :comments, only: :create
