@@ -16,7 +16,11 @@
   <% end %>
         <br>
   <%= link_to article_url(article), class: "has-text-black is-success", data: {turbo_frame: 'articles'} do %>
+        <% if article.image.attached? %>
+          <%= image_tag article.image %>
+        <% else %>
           <%= article.body %>
+        <% end %>
       </p>
     </div>
   <% end %>

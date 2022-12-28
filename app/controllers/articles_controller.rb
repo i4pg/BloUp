@@ -18,15 +18,33 @@ class ArticlesController < ApplicationController
 
   # GET /articles/new
   def new
+    @text_id = (Text.last&.id&.+ 1) || 1
+    @article = current_user.articles.new
+  end
+
+  # GET /articles/new_image
+  def new_image
+    @image_id = (Image.last&.id&.+ 1) || 1
     @article = current_user.articles.new
   end
 
   # GET /articles/1/edit
   def edit; end
 
+  def articleble
+    case params[:article][:articleble_type]
+    when 'Text'
+      @text = Text.create
+    when 'Image'
+      @image = Image.create
+    end
+  end
+
   # POST /articles or /articles.json
   def create
-    @article = current_user.articles.new(article_params)
+    articleble
+
+    @article = current_user.articles.create(article_params)
 
     respond_to do |format|
       if @article.save
@@ -77,6 +95,6 @@ class ArticlesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def article_params
-    params.require(:article).permit(:body, :user_id)
+    params.require(:article).permit(:body, :user_id, :articleble_type, :articleble_id, :image, :link)
   end
 end

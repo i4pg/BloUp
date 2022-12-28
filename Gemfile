@@ -85,3 +85,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'figaro', '~> 1.2'
+
+gem 'down', '~> 5.4'
+
+gem "active_storage_validations", "~> 1.0"

@@ -21,11 +21,11 @@ au = User.first
 puts "\n== Seeding Articles =="
 
 User.all.each do |u|
-  u.articles.build(body: Faker::Quote.famous_last_words).save
-  u.articles.build(body: Faker::Quote.jack_handey).save
-  u.articles.build(body: Faker::Quote.matz).save
-  u.articles.build(body: Faker::Quote.most_interesting_man_in_the_world).save
-  u.articles.build(body: Faker::Quote.yoda).save
+  u.articles.build(body: Faker::Quote.famous_last_words, articleble: Text.new).save
+  u.articles.build(body: Faker::Quote.jack_handey, articleble: Text.new).save
+  u.articles.build(body: Faker::Quote.matz, articleble: Text.new).save
+  u.articles.build(body: Faker::Quote.most_interesting_man_in_the_world, articleble: Text.new).save
+  u.articles.build(body: Faker::Quote.yoda, articleble: Text.new).save
 end
 
 puts "\n== Seeding Friends requests =="

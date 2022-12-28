@@ -1,16 +1,29 @@
 <%= form_with(model: article) do |form| %>
   <%= render "error_each", article: article %>
-
+        <div class="tabs is-boxed is-centered">
+  <ul>
+    <li class="is-active">
+        <%= link_to new_article_url, data: { turbo_frame: 'article_form' } do %>
+        <span class="icon is-small"><i class="far fa-file-alt" aria-hidden="true"></i></span>
+        <span>Documents</span>
+        <% end %>
+    </li>
+    <li class="">
+        <%= link_to new_image_url, data: { turbo_frame: 'article_form' } do %>
+        <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+        <span>Pictures</span>
+        <% end %>
+    </li>
+  </ul>
+</div>
   <article class="media">
-    <figure class="media-left">
-      <p class="image is-64x64">
-        <%# image_tag rails_storage_proxy_path(current_user.avatar), class: "is-rounded"  %>
-      </p>
-    </figure>
     <div class="media-content">
       <div class="field">
+
         <p class="control">
           <%= form.text_area :body, class: "textarea",autofocus: true, placeholder: "Write a new Aritcle" %>
+          <%= form.hidden_field :articleble_type, value: 'Text' %>
+          <%= form.hidden_field :articleble_id, value: @text_id %>
         </p>
       </div>
       <nav class="level">
@@ -24,4 +37,5 @@
       </nav>
     </div>
   </article> <br>
+
 <% end %>

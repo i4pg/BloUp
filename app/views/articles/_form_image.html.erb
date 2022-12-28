@@ -1,0 +1,66 @@
+<%= form_with(model: article) do |form| %>
+        <div class="tabs is-boxed is-centered">
+  <ul>
+    <li class="">
+        <%= link_to new_article_url, data: { turbo_frame: 'article_form' } do %>
+        <span class="icon is-small"><i class="far fa-file-alt" aria-hidden="true"></i></span>
+        <span>Documents</span>
+        <% end %>
+    </li>
+    <li class="is-active">
+        <%= link_to new_image_url, data: { turbo_frame: 'article_form' } do %>
+        <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+        <span>Pictures</span>
+        <% end %>
+    </li>
+  </ul>
+</div>
+  <article class="media">
+    <div class="media-content">
+        <div class="field">
+          <p class="control">
+            <%= form.url_field :link, class: "input", type: "link", autofocus: true, placeholder: "Insert image link or Upload an image" %>
+          </p>
+        </div>
+        <hr>
+        <div class="field">
+          <div id="Upload" class="file is-info has-name">
+            <label class="file-label">
+              <%= form.file_field :image, direct_upload: true, class: "file-input", type: "file" %>
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Upload Image
+                </span>
+              </span>
+              <span class="file-name">
+                No image uploaded
+              </span>
+            </label>
+          </div>
+        </div>
+              <%= form.hidden_field :articleble_type, value: 'Image' %>
+              <%= form.hidden_field :articleble_id, value: @image_id %>
+      <nav class="level">
+        <div class="level-left">
+          <div class="level-item buttons">
+            <%= form.submit 'Create Article', class: "button is-success" %>
+            <%= link_to "Cancel", root_path,
+                                  class: "button is-info" %>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </article> <br>
+<% end %>
+<script>
+  const fileInput = document.querySelector('#Upload input[type=file]');
+  fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+      const fileName = document.querySelector('#Upload .file-name');
+      fileName.textContent = fileInput.files[0].name;
+    }
+  }
+</script>

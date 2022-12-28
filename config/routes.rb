@@ -5,6 +5,8 @@ Rails.application.routes.draw do
              controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
                             registrations: 'users/registrations_callbacks' }
 
+  get 'articles/new_image', to: 'articles#new_image', as: 'new_image'
+  # post 'articles/new_image', to: 'articles#create', as: 'create_image'
   resources :articles do
     resources :comments, only: :create
   end
