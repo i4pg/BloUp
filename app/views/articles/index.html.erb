@@ -2,13 +2,20 @@
 
 
   <%= turbo_stream_from current_user, 'article_stream' %>
-  <% if user_signed_in? %>
-    <%= turbo_frame_tag 'proile', class: "column box" do %>
-      <%= render "users/profile", user: current_user %>
-    <% end %>
-  <% end %>
+  <%# if user_signed_in? %>
+    <%# turbo_frame_tag 'proile', class: "column box" do %>
+      <%# render "users/profile", user: current_user %>
+    <%# end %>
+  <%# end %>
   
-  <%= turbo_frame_tag 'articles', class: "column box is-three-quarters" do %>
+  <%= turbo_frame_tag 'articles', class: "column box" do %>
+    <div class="field">
+      <% if user_signed_in? %>
+        <%= link_to sanitize("&larr; New Article"),
+            new_article_url,
+            data: { turbo_frame: 'article_form' } %>
+      <% end %>
+    </div>
     <%= turbo_frame_tag 'article_form' %>
     <%= turbo_frame_tag 'created_article' do %>
       <%= render @articles %>

@@ -13,19 +13,17 @@
 
   <body class="has-navbar-fixed-top">
     <%= render "layouts/navbar" %>
-
     <div class="container">
       <div class="section">
-
         <div id="flash" class="flash">
-        <%= render 'layouts/flash' %> 
+          <%= render 'layouts/flash' %> 
         </div><br>
-
         <%= yield %>
-
       </div>
     </div>
+    <%= render "layouts/footer" %>
   </body>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
 

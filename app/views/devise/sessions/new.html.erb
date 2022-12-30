@@ -1,44 +1,81 @@
 <section class="scetion columns is-mobile">
   <div class="container content column is-half is-offset-one-quarter">
-<%= turbo_frame_tag 'articles' do %>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <%= turbo_frame_tag 'articles' do %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="buttons">
-    <div class="control">
-    </div>
-  </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal"></div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <%= render "devise/shared/links" %>
+              </p>
+            </div>
+          </div>
+        </div>
 
-  <div class="field">
-    <%= f.label :login, class: "label" %>
-    <div class="control">
-    <%= f.text_field :login, autofocus: true, placeholder: "Username or Email", class: "input" %>
-    </div>
-  </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <%= f.label :account, class: "label" %>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control is-expanded has-icons-left">
+                <%= f.text_field :login, autofocus: true, placeholder: "username or email", class: "input" %>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+              <%= f.password_field :password, autocomplete: "current-password", class: "input", placeholder: 'password' %>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <div class="control">
-    <%= f.password_field :password, autocomplete: "current-password", class: "input" %>
-      </div>
-  </div>
+        <% if devise_mapping.rememberable? %>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <%= f.label :remember_me, class: 'label' %>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <%= f.check_box :remember_me, class: "checkbox" %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <% end %>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <div class="control">
-      <%= f.check_box :remember_me, class: "checkbox" %>
-      <%= f.label :remember_me, class: "checkbox" %>
-      </div>
-    </div>
-  <% end %>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal"></div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <%= f.submit "Log in", class: "button is-primary", data: { turbo_frame: 'sign_buttons'} %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %><br>
 
-  <div class="buttons">
-    <%= f.submit "Log in", class: "button is-success", data: { turbo_frame: 'sign_buttons'} %>
-  </div>
-<%= render "devise/shared/links" %>
-<% end %>
-
-      <%= button_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "button is-link" %>
-<% end %>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal"></div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <%= button_to "Login with Facebook", user_facebook_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "button is-link" %>
+              </p>
+            </div>
+          </div>
+        </div>
+    <% end %>
   </div>
 </section>

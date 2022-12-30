@@ -6,12 +6,12 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-puts "\n== Seeding the database with fixtures =="
+# puts "\n== Seeding the database with fixtures =="
 # system('bin/rails db:fixtures:load')
 
 puts "\n== Seeding Users =="
 
-50.times do
+5.times do
   User.create(username: Faker::Internet.unique.username, email: Faker::Internet.email,
               password: 'password', bio: Faker::Quotes::Shakespeare.hamlet_quote).save!
 end
@@ -23,9 +23,6 @@ puts "\n== Seeding Articles =="
 User.all.each do |u|
   u.articles.build(body: Faker::Quote.famous_last_words, articleble: Text.new).save
   u.articles.build(body: Faker::Quote.jack_handey, articleble: Text.new).save
-  u.articles.build(body: Faker::Quote.matz, articleble: Text.new).save
-  u.articles.build(body: Faker::Quote.most_interesting_man_in_the_world, articleble: Text.new).save
-  u.articles.build(body: Faker::Quote.yoda, articleble: Text.new).save
 end
 
 puts "\n== Seeding Friends requests =="

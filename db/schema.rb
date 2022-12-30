@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_041237) do
   end
 
   create_table "articles", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "author_id", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_041237) do
     t.bigint "articleble_id", null: false
     t.string "link"
     t.index ["articleble_type", "articleble_id"], name: "index_articles_on_articleble"
-    t.index ["user_id"], name: "index_articles_on_user_id"
+    t.index ["author_id"], name: "index_articles_on_author_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -99,13 +99,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_041237) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "article_id", null: false
+    t.bigint "liker_id", null: false
+    t.bigint "liked_article_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_likes_on_article_id"
-    t.index ["user_id", "article_id"], name: "index_likes_on_user_id_and_article_id", unique: true
-    t.index ["user_id"], name: "index_likes_on_user_id"
+    t.index ["liked_article_id"], name: "index_likes_on_liked_article_id"
+    t.index ["liker_id", "liked_article_id"], name: "index_likes_on_liker_id_and_liked_article_id", unique: true
+    t.index ["liker_id"], name: "index_likes_on_liker_id"
   end
 
   create_table "texts", force: :cascade do |t|
@@ -134,14 +134,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_041237) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "articles", "users"
+  add_foreign_key "articles", "users", column: "author_id"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users", column: "commenter_id"
   add_foreign_key "friend_requests", "users", column: "receiver_id"
   add_foreign_key "friend_requests", "users", column: "requester_id"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
-  add_foreign_key "likes", "articles"
-  add_foreign_key "likes", "users"
+  add_foreign_key "likes", "articles", column: "liked_article_id"
+  add_foreign_key "likes", "users", column: "liker_id"
   add_foreign_key "users", "users", column: "friend_id"
 end

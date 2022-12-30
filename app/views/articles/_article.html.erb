@@ -1,18 +1,18 @@
 <article class="media article">
-  <%= link_to user_url(article.user), class: "has-text-black", data: {turbo_frame: 'articles'} do %>
+  <%= link_to user_url(article.author), class: "has-text-black", data: {turbo_frame: 'articles'} do %>
   <figure class="media-left">
     <p class="image is-64x64">
-      <%= image_tag article.user.displayed_avatar, class: "is-rounded"  %>
+      <%= image_tag article.author.displayed_avatar, class: "is-rounded"  %>
     </p>
   </figure>
   <% end %>
 
   <%= turbo_frame_tag 'partial_article' do %>
-  <%= link_to user_url(article.user), class: "has-text-black", data: {turbo_frame: 'articles'} do %>
+  <%= link_to user_url(article.author), class: "has-text-black", data: {turbo_frame: 'articles'} do %>
   <div class="media-content">
     <div class="content ">
       <p class="is-family-monospace">
-        <strong>@<%= article.user.username %></strong> <small><%= time_ago_in_words(article.created_at) %></small>
+        <strong>@<%= article.author.username %></strong> <small><%= time_ago_in_words(article.created_at) %></small>
   <% end %>
         <br>
   <%= link_to article_url(article), class: "has-text-black is-success", data: {turbo_frame: 'articles'} do %>
@@ -29,19 +29,38 @@
     <nav class="level is-mobile">
       <div class="level-left">
         <%= turbo_stream_from 'like_stream' %>
-        <%= button_to likes_path,
-          params: {article_id: article.id},
-          mathod: :post,
-          class: "level-item",
-          title: "Likes" do %>
-            <span class="icon is-small">
-              <i class="fas fa-heart"></i>
-            </span>&nbsp;
-            <small>
-              <span id="likes <%= dom_id article %>">
-                <%= article.likes.count unless article.likes.count.zero? %>
-              </span>
-            </small>
+        <% if @liked&.include?(article) %>
+          <%= button_to likes_path,
+            params: {article_id: article.id},
+            mathod: :post,
+            class: "level-item",
+            style: "border: none; background-color: transparent; cursor: pointer", class: 'has-text-primary',
+            title: "Likes" do %>
+              <span class="icon is-small">
+                <i class="fas fa-heart"></i>
+              </span>&nbsp;
+              <small>
+                <span id="likes <%= dom_id article %>">
+                  <%= article.likes.count unless article.likes.count.zero? %>
+                </span>
+              </small>
+            <% end %>
+          <% else %>
+            <%= button_to likes_path,
+              params: {article_id: article.id},
+              mathod: :post,
+              class: "level-item",
+              style: "border: none; background-color: transparent; cursor: pointer", class: 'has-text-link',
+              title: "Likes" do %>
+                <span class="icon is-small">
+                  <i class="fas fa-heart"></i>
+                </span>&nbsp;
+                <small>
+                  <span id="likes <%= dom_id article %>">
+                    <%= article.likes.count unless article.likes.count.zero? %>
+                  </span>
+                </small>
+            <% end %>
           <% end %>
       </div>
     </nav>

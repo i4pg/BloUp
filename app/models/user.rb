@@ -7,12 +7,9 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  def displayed_avatar
-    avatar.attached? ? avatar : Faker::Avatar.image # 'default_avatar.jpg'
-  end
-
-  has_many :articles, dependent: :destroy
-  has_many :likes, dependent: :destroy
+  has_many :articles, foreign_key: :author_id, dependent: :destroy, class_name: 'Article'
+  has_many :likes, foreign_key: :liker_id, dependent: :destroy
+  has_many :liked_articles, through: :likes
   has_many :comments, foreign_key: 'commenter_id', class_name: 'Comment', dependent: :destroy
 
   # to remove assocation just call delete
@@ -35,6 +32,10 @@ class User < ApplicationRecord
   # Create a login virtual attribute in the User model
   # Add login as an User
   attr_writer :login
+
+  def displayed_avatar
+    avatar.attached? ? avatar : Faker::Avatar.image # 'default_avatar.jpg'
+  end
 
   def pendings
     received_requests.pending.or(sent_requests.pending)

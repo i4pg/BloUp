@@ -3,8 +3,10 @@ class LikesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    if @user.likes.find_by(article: @article).nil?
-      @like = @article.likes.create(user: @user)
+    if @user.liked_articles.include?(@article)
+      destroy
+    else
+      @like = @article.likes.create(liker: @user)
 
       respond_to do |format|
         if @like.save
@@ -14,13 +16,11 @@ class LikesController < ApplicationController
           format.html { redirect_to articles_path, notice: 'Like' }
         end
       end
-    else
-      destroy
     end
   end
 
   def destroy
-    @like = @user.likes.find_by(article: @article)
+    @like = @user.likes.find_by(liked_article: @article)
 
     @like.destroy
     respond_to do |format|

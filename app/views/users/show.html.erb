@@ -4,7 +4,7 @@
     
     <div class="media-left">
       <figure class="image is-64x64">
-        <img class="is-rounded" src="<%= Faker::Avatar.image %>">
+        <%= image_tag @user.displayed_avatar, class: "is-rounded"  %>
       </figure>
     </div>
 

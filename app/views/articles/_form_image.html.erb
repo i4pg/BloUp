@@ -18,13 +18,16 @@
   <article class="media">
     <div class="media-content">
         <div class="field">
-          <p class="control">
-            <%= form.url_field :link, class: "input", type: "link", autofocus: true, placeholder: "Insert image link or Upload an image" %>
+          <p class="control has-icons-left">
+            <%= form.url_field :link, class: "input", type: "link", autofocus: true, placeholder: "Image URL" %>
+            <span class="icon is-small is-left">
+              <i class="fas fa-globe"></i>
+            </span>
           </p>
+            <p class="help is-primary">Or Upload an image</p>
         </div>
-        <hr>
         <div class="field">
-          <div id="Upload" class="file is-info has-name">
+          <div id="Upload" class="file has-name">
             <label class="file-label">
               <%= form.file_field :image, direct_upload: true, class: "file-input", type: "file" %>
               <span class="file-cta">
@@ -46,21 +49,12 @@
       <nav class="level">
         <div class="level-left">
           <div class="level-item buttons">
-            <%= form.submit 'Create Article', class: "button is-success" %>
+            <%= form.submit 'Create Article', class: "button is-primary" %>
             <%= link_to "Cancel", root_path,
-                                  class: "button is-info" %>
+                                  class: "button is-link" %>
           </div>
         </div>
       </nav>
     </div>
   </article> <br>
 <% end %>
-<script>
-  const fileInput = document.querySelector('#Upload input[type=file]');
-  fileInput.onchange = () => {
-    if (fileInput.files.length > 0) {
-      const fileName = document.querySelector('#Upload .file-name');
-      fileName.textContent = fileInput.files[0].name;
-    }
-  }
-</script>

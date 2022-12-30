@@ -2,7 +2,7 @@
   <%= link_to user_url(user.id) do %>
     <div class="media-left">
       <figure class="image is-48x48">
-        <img class="is-rounded" src="<%= Faker::Avatar.image %>">
+        <%= image_tag user.displayed_avatar, class: "is-rounded"  %>
       </figure>
     </div>
 

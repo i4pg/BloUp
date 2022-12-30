@@ -1,79 +1,54 @@
 <nav class="navbar has-shadow is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-<%= link_to root_path, class: "navbar-item" do %>
-  <?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M8 14h8M8 10h2M8 18h4M10 3H6a2 2 0 00-2 2v15a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2h-3.5M10 3V1m0 2v2" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-  <% end %>
+    <%= link_to root_path, class: "navbar-item" do %>
+      <?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M8 14h8M8 10h2M8 18h4M10 3H6a2 2 0 00-2 2v15a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2h-3.5M10 3V1m0 2v2" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <% end %>
 
-<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-  <span aria-hidden="true"></span>
-  <span aria-hidden="true"></span>
-  <span aria-hidden="true"></span>
-</a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-<div class="navbar-start">
-  <a class="navbar-item">
-    Home
-  </a>
-
-  <a class="navbar-item">
-    Documentation
-  </a>
-
-  <div class="navbar-item has-dropdown is-hoverable">
-    <a class="navbar-link">
-      More
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
     </a>
-
-    <div class="navbar-dropdown">
-      <a class="navbar-item">
-        About
-      </a>
-      <a class="navbar-item">
-        Jobs
-      </a>
-      <a class="navbar-item">
-        Contact
-      </a>
-      <hr class="navbar-divider">
-      <a class="navbar-item">
-        Report an issue
-      </a>
+  </div>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to 'Home', root_path, class: "navbar-item" %>
+      <%= link_to 'Documentation', 'https://github.com/xiyini/BloUp', class: "navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to 'Odin', 'https://www.theodinproject.com', class: "navbar-item" %>
+          <%= link_to 'Ruby', 'https://www.ruby-lang.org', class: "navbar-item" %>
+          <%= link_to 'Rails', 'https://rubyonrails.org/', class: "navbar-item" %>
+          <%= link_to 'Hotwire', 'https://hotwired.dev/', class: "navbar-item" %>
+          <%= link_to 'Bulma', 'https://bulma.io', class: "navbar-item" %>
+          <hr class="navbar-divider">
+          <%= link_to 'Report an issue', 'https://github.com/xiyini/BloUp/issues', class: "navbar-item" %>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-<div class="navbar-end">
-  <div class="navbar-item">
-      <%= turbo_frame_tag 'sign_buttons', class: "buttons" do %>
-        <% if user_signed_in? %>
-          <%= link_to "New article",
-                      new_article_url,
-                      class: "button is-responsive",
-                      data: { turbo_frame: 'article_form' } %>
-
-                    <%= turbo_stream_from current_user,'requests_count_stream' %>
-                    <%= link_to edit_user_registration_path(
-                      id: current_user.id),
-                      class: 'is-responsive button is-info',
-                      data: { turbo_frame: 'articles' } do %>        
-                        Profile
-                      <% new_request = current_user.received_requests.pending %>
-                      <% unless new_request.count.zero? %>
-                        <span id='requests_counter' title="Badge top right" class="badge is-danger is-top-left"><%= new_request.count %></span>
-                      <% end %>
-                    <% end %>
-
-          <%= button_to('Logout', destroy_user_session_path, method: :delete, class: "is-responsive button is-light")  %> 
-        <% else %>
-          <%= link_to('Login', new_user_session_path ,  class: "button is-light is-responsive", data: { turbo_frame: "articles" }) %>  
-          <%= link_to('Sign Up', new_user_registration_path ,  class: "is-responsive button is-primary", data: { turbo_frame: "articles" })%>  
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <%= turbo_frame_tag 'sign_buttons', class: "buttons" do %>
+          <% if user_signed_in? %>
+            <%= turbo_stream_from current_user,'requests_count_stream' %>
+            <%= link_to edit_user_registration_path(id: current_user.id), class: 'is-responsive button is-primary', data: { turbo_frame: 'articles' } do %>        
+              Profile
+              <% new_request = current_user.received_requests.pending %>
+              <% unless new_request.count.zero? %>
+                <span id='requests_counter' title="Badge top right" class="badge is-danger is-top-left"><%= new_request.count %></span>
+              <% end %>
+          <% end %>
+            <%= button_to('Logout', destroy_user_session_path, method: :delete, class: "is-responsive button is-light")  %> 
+          <% else %>
+            <%= link_to('Login', new_user_session_path ,  class: "button is-light is-responsive", data: { turbo_frame: "articles" }) %>  
+            <%= link_to('Sign Up', new_user_registration_path ,  class: "is-responsive button is-primary", data: { turbo_frame: "articles" })%>  
+          <% end %>
         <% end %>
-      <% end %>
-  </div>
-</div>
-
+      </div>
+    </div>
   </div>
 </nav>
 

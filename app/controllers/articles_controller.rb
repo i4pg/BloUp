@@ -4,16 +4,18 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    if user_signed_in?
-      @articles = Article.includes(:user).where(user: current_user.friends).or(current_user.articles).order(created_at: :desc).limit(12)
-    else
-      @articles = Article.includes(:user).limit(12).order(created_at: :desc)
-    end
+    @articles = if user_signed_in?
+                  @liked = current_user.liked_articles
+                  Article.includes(:author).where(author: current_user.friends).or(current_user.articles).order(created_at: :desc)
+                else
+                  Article.includes(:author).order(created_at: :desc)
+                end
   end
 
   # GET /articles/1 or /articles/1.json
   def show
     @comments = @article.comments.order(created_at: :desc)
+    @liked = current_user.liked_articles
   end
 
   # GET /articles/new

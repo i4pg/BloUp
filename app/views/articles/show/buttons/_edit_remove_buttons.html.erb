@@ -1,4 +1,4 @@
-<% if current_user == @article.user %>
+<% if current_user == @article.author %>
   <%= link_to "Edit", edit_article_path(@article),
                       data: { turbo_frame: "article_form" },
                       class: "button is-primary" %>

@@ -1,49 +1,112 @@
 <section class="scetion columns is-mobile">
   <div class="container content column is-half is-offset-one-quarter">
-<%= turbo_frame_tag 'articles' do %>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :username, class: "label" %>
-    <div class="control">
-    <%= f.text_field :username, autofocus: true, placeholder: "yourusername", class: "input" %>
-    </div>
-    <p class="help">Enter your username</p>
+    <%= turbo_frame_tag 'articles' do %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal"></div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <%= render "devise/shared/links" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+              <%= f.label :avatar, class: "label" %>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div id="file-js-example" class="file has-name">
+                <label class="file-label">
+                  <%= f.file_field :avatar, class: "file-input", type: "file" %>
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Choose a file…
+                    </span>
+                  </span>
+                  <span class="file-name">
+                    No file uploaded
+                  </span>
+                </label>
+              </div>
+              <script>
+                const fileInput = document.querySelector('#file-js-example input[type=file]');
+                fileInput.onchange = () => {
+                  if (fileInput.files.length > 0) {
+                    const fileName = document.querySelector('#file-js-example .file-name');
+                    fileName.textContent = fileInput.files[0].name;
+                  }
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <%= f.label :account, class: "label" %>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control is-expanded has-icons-left">
+                <%= f.text_field :username, autofocus: true, placeholder: "@username", class: "input" %>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+              </div>
+              <p class="help">Enter your username</p>
+            </div>
+            <div class="field">
+              <div class="control is-expanded has-icons-left">
+                <%= f.email_field :email, autocomplete: "email", placeholder: "example@email.com", class: "input" %>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+              </div>
+              <p class="help">Make sure it's a valid E-mail address</p>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+              <%= f.label :password, class: "label" %>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+              <%= f.password_field :password, autocomplete: "new-password", class: "input", placeholder: 'password' %>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </p>
+              <p class="help">6 characters minimum</p>
+            </div>
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input", placeholder: 'password confirmation' %>
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal"></div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <%= f.submit "Sign up", class: "button is-primary" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :email, class: "label" %>
-    <div class="control">
-    <%= f.email_field :email, autocomplete: "email", placeholder: "example@email.com", class: "input" %>
-    </div>
-    <p class="help">Make sure it's a valid E-mail address</p>
-  </div>
-
-  <div class="field">
-    <%= f.label :password, class: "label" %>
-    <div class="control">
-    <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
-    </div>
-    <p class="help">6 characters minimum</p>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, class: "label" %>
-    <div class="control">
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
-    </div>
-  </div>
-
-  <div class="field">
-    <div class="control">
-    <%= f.submit "Sign up", class: "button is-success" %>
-    </div>
-  </div>
-<%= render "devise/shared/links" %>
-<% end %>
-
-<% end %>
-</div>
-  </section>
+</section>

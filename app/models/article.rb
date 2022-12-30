@@ -11,8 +11,10 @@ class Article < ApplicationRecord
   has_one_attached :image
 
   belongs_to :articleble, polymorphic: true
-  belongs_to :user
-  has_many :likes, dependent: :destroy
+
+  belongs_to :author, class_name: 'User'
+  has_many :likes, foreign_key: :liked_article_id, dependent: :destroy
+  has_many :likers, through: :likes
   has_many :comments, dependent: :destroy
 
   # 1. partial 'articles/_article'
@@ -20,7 +22,7 @@ class Article < ApplicationRecord
   # 3. inserts_by append,prepend,remove,update,before,after
   # 4. target turbo frame or div to prepend or append what so ever
   broadcasts_to lambda { |article|
-                  [article.user, 'article_stream']
+                  [article.author, 'article_stream']
                 }, inserts_by: :prepend, target: 'created_article'
 
   def upload_image_via_link
