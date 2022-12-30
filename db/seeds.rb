@@ -25,8 +25,8 @@ User.all.each do |u|
   u.articles.build(body: Faker::Quote.jack_handey, articleble: Text.new).save
 end
 
-puts "\n== Seeding Friends requests =="
+# puts "\n== Seeding Friends requests =="
 
-User.all.each do |user|
-  user.sent_requests.build(receiver_id: au.id).save unless user == au
-end
+# User.all.each do |user|
+#   user.sent_requests.build(receiver_id: au.id).save unless user == au
+# end
