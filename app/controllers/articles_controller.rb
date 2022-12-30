@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index]
 
   # GET /articles or /articles.json
   def index
@@ -15,7 +15,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1 or /articles/1.json
   def show
     @comments = @article.comments.order(created_at: :desc)
-    @liked = current_user.liked_articles
+    @liked = current_user.liked_articles if user_signed_in?
   end
 
   # GET /articles/new
