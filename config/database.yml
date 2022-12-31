@@ -81,7 +81,7 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV["DATABASE_URL"]%>
+  url: <%= ENV["DATABASE_URL"] %>
   database: BloUp_production
   username: BloUp
   password: <%= ENV["BLOUP_DATABASE_PASSWORD"] %>

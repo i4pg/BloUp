@@ -13,7 +13,7 @@ class LikesController < ApplicationController
           format.turbo_stream do
             render turbo_stream: turbo_stream.update("likes article_#{@article.id}", @article.likes.count)
           end
-          format.html { redirect_to articles_path, notice: 'Like' }
+          format.html { redirect_to articles_url, notice: 'Liked' }
         end
       end
     end

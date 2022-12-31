@@ -15,7 +15,6 @@ class FriendRequestsController < ApplicationController
 
     respond_to do |format|
       if @friend_request.save!
-        # format.turbo_stream
         format.html { redirect_to users_path, notice: 'Friend request sent.' }
         format.json { render :show, status: :created, location: @friend_request }
       else
@@ -29,10 +28,10 @@ class FriendRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @friend_request.update(friend_request_params)
-        format.html { redirect_to friend_requests_path, notice: 'Friend request accepted.' }
+        format.html { redirect_to users_path, notice: 'Friend request accepted.' }
         format.json { render :show, status: :ok, location: @friend_request }
       else
-        format.html { redirect_to friend_requests_path, status: :unprocessable_entity }
+        format.html { redirect_to users_path, status: :unprocessable_entity }
       end
     end
   end
@@ -42,7 +41,7 @@ class FriendRequestsController < ApplicationController
     @friend_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to friend_requests_path, alert: 'Friend request was ignored.' }
+      format.html { redirect_to users_path, alert: 'Friend request was ignored.' }
       format.json { head :no_content }
     end
   end
