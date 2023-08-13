@@ -1,7 +1,7 @@
-// @charset "utf-8";
+@charset "utf-8";
 
 // Import a Google Font
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
 // Set your brand colors
 $purple: #8A4D76;
@@ -11,21 +11,19 @@ $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
 
 // Update Bulma's global variables
-$family-sans-serif: "Indie Flower", cursive;
-$size-1: 10rem;
+$family-sans-serif: "Nunito", sans-serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
 $primary: $purple;
 $link: $pink;
 $widescreen-enabled: false;
-// $fullhd-enabled: false;
+$fullhd-enabled: false;
 
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
-$box-radius: 20px;
 
 // Import only what you need from Bulma
 @import "bulma/sass/utilities/_all.sass";
@@ -37,11 +35,5 @@ $box-radius: 20px;
 @import "bulma/sass/components/navbar.sass";
 @import "bulma/sass/layout/hero.sass";
 @import "bulma/sass/layout/section.sass";
-@import "components/turbo_progress_bar";
-@import "components/flash";
-@import "components/bulma-badge.scss";
-@import "components/direct_uploads";
-@import "config/animations";
 
 @import 'bulma/bulma';
-@import 'actiontext.css';
